@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RIF documentation | {{ .Title }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ "css/reset.css" | absURL }}">
+    <link rel="stylesheet" href="{{ "css/docs.css" | absURL }}">
+  </head>
+  <body>
+  <header class="header">
+    <div class="header__logo-container">
+      <a href="{{ "/" | absURL }}">
+        <img class="header__logo" src="{{ "img/logo-text.svg" | absURL }}">
+      </a>
+    </div>
+    <div class="header__links">
+      <a class="header__link" href="#">
+        Download<img class="header__icon" src="{{ "img/icon-download.svg" | absURL }}">
+      </a>
+      <a class="header__link" href="https://github.com/turingincomplete/rif">
+        Github<img class="header__icon" src="{{ "img/icon-gh.svg" | absURL }}">
+      </a>
+    </div>
+  </header>
+  <div class="sidebar">
+    <ul>
+    {{ $pageScope := . }}
+    {{ range where .Site.Pages "Section" "docs"}}
+      {{if eq .Title $pageScope.Title}}
+        <a class="sidebar__link sidebar__link-highlight" href="{{.Permalink}}">
+          <li class="sidebar__link-container sidebar__link-container-highlight">
+            {{.Title}}
+          </li>
+        </a>
+      {{else}}
+        <a class="sidebar__link" href="{{.Permalink}}">
+          <li class="sidebar__link-container">
+              {{.Title}}
+          </li>
+        </a>
+      {{end}}
+    {{ end }}
+    </ul>
+  </div>
+  <div class="content-container">
+    <div class="content">
+      <span class="content__title">{{ .Title }}</span>
+      <div>
+        {{ .Content }}
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

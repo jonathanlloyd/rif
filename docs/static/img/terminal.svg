@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="139.5489mm"
+   height="78.779297mm"
+   viewBox="0 0 139.5489 78.779297"
+   version="1.1"
+   id="svg4645"
+   sodipodi:docname="terminal.svg"
+   inkscape:version="0.92.1 r15371">
+  <defs
+     id="defs4639" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.0018074"
+     inkscape:cx="268.57376"
+     inkscape:cy="151.92811"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4642">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-26.566572,-85.978363)">
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:3.43192196;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect5190"
+       width="139.5489"
+       height="78.779297"
+       x="26.566572"
+       y="85.978363"
+       rx="1.8520833"
+       ry="1.8520833" />
+    <g
+       id="g5251"
+       transform="translate(1.0583333)">
+      <circle
+         r="2.3769538"
+         cy="91.952209"
+         cx="32.274872"
+         id="path5194"
+         style="fill:#d9515d;fill-opacity:1;stroke:none;stroke-width:5.99999952;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         r="2.3769538"
+         cy="91.952209"
+         cx="38.889454"
+         id="path5194-3"
+         style="fill:#f4c025;fill-opacity:1;stroke:none;stroke-width:5.99999952;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         r="2.3769538"
+         cy="91.952209"
+         cx="45.504036"
+         id="path5194-3-6"
+         style="fill:#3ec930;fill-opacity:1;stroke:none;stroke-width:5.99999952;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:0.60000002;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="31.180309"
+       y="106.31831"
+       id="text5228"><tspan
+         sodipodi:role="line"
+         x="31.180309"
+         y="106.31831"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:Hack;-inkscape-font-specification:Hack;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5230">$ rif request-2001.rif --name=&quot;Dave&quot;</tspan><tspan
+         sodipodi:role="line"
+         x="31.180309"
+         y="113.34424"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:Hack;-inkscape-font-specification:Hack;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5234">Response: 403 - Forbidden</tspan><tspan
+         sodipodi:role="line"
+         x="31.180309"
+         y="120.37017"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:Hack;-inkscape-font-specification:Hack;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5236">{</tspan><tspan
+         sodipodi:role="line"
+         x="31.180309"
+         y="127.3961"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:Hack;-inkscape-font-specification:Hack;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5240">  &quot;author&quot;: &quot;HAL&quot;,</tspan><tspan
+         sodipodi:role="line"
+         x="31.180309"
+         y="134.42203"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:Hack;-inkscape-font-specification:Hack;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5244">  &quot;text&quot;: &quot;I'm afraid I cant do that Dave&quot;</tspan><tspan
+         sodipodi:role="line"
+         x="31.180309"
+         y="141.44795"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:Hack;-inkscape-font-specification:Hack;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5242">}</tspan><tspan
+         sodipodi:role="line"
+         x="31.180309"
+         y="148.47388"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:Hack;-inkscape-font-specification:Hack;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5246">$</tspan><tspan
+         sodipodi:role="line"
+         x="31.180309"
+         y="155.4998"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.58611107px;line-height:1;font-family:Hack;-inkscape-font-specification:Hack;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan5238">  </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="92.091499"
+       y="92.65387"
+       id="text5274"><tspan
+         sodipodi:role="line"
+         id="tspan5272"
+         x="92.091499"
+         y="92.65387"
+         style="font-size:3.52777767px;fill:#999999;stroke-width:0.26458332">bash</tspan></text>
+  </g>
+</svg>
