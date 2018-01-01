@@ -18,12 +18,17 @@ def after_step(context, step):
 
 
 def before_feature(context, feature):
+    context.echo_server = None
     if 'needs_echo_server' in feature.tags:
         print('starting echo server...')
-        context.echo_server = subprocess.Popen(['/vol/tests/echo-server'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        context.echo_server = subprocess.Popen(
+            ['/vol/tests/echo-server'],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
 
 def after_feature(context, feature):
-    if 'needs_echo_server' in feature.tags:
-        print('stopping echo server')
+    if context.echo_server:
+        print('stopping echo server...')
         context.echo_server.terminate()
         context.echo_server.wait()

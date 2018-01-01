@@ -3,4 +3,4 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-docker run -it -v $PWD/tests/acceptance-tests:/vol/tests thisisjonathan/pythonbehave behave /vol/tests
+docker run -it -v $PWD/tests/acceptance-tests:/vol/tests -v $PWD/build:/vol/build thisisjonathan/pythonbehave behave /vol/tests
