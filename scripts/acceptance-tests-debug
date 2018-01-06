@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -euo pipefail
-cd "$(dirname "$0")/.."
-
-docker run -it -v $PWD/tests/acceptance-tests:/vol/tests thisisjonathan/pythonbehave behave /vol/tests -D BEHAVE_DEBUG_ON_ERROR
