@@ -8,6 +8,5 @@ draft = false
 # HTTP made really easy
 Keep your **R**equests **I**n **F**iles.
 
-RIF is a command-line tool that allows you to store complex
-multi-parameter HTTP requests as simple template files to make testing
-and interacting with HTTP APIs a breeze.
+RIF is a command-line tool that allows you to store repetitive and complex
+HTTP requests as files to make testing and interacting with HTTP APIs a breeze.

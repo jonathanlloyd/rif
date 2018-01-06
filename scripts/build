@@ -5,3 +5,4 @@ cd "$(dirname "$0")/.."
 
 [ -d build ] || mkdir build
 go build -ldflags "-X main.version=$(git describe --abbrev=0 --tags) -X main.buildNo=$(git rev-parse --short HEAD)" -o build/rif cmd/rif.go
+go build -o build/echo-server tools/echo-server.go

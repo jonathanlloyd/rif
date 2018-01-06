@@ -1,4 +1,5 @@
 # USE: behave -D BEHAVE_DEBUG_ON_ERROR         (to enable  debug-on-error)
+import time
 import subprocess
 
 BEHAVE_DEBUG_ON_ERROR = False
@@ -22,10 +23,11 @@ def before_feature(context, feature):
     if 'needs_echo_server' in feature.tags:
         print('starting echo server...')
         context.echo_server = subprocess.Popen(
-            ['/vol/tests/echo-server'],
+            ['/vol/build/echo-server'],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )
+        time.sleep(1)
 
 def after_feature(context, feature):
     if context.echo_server:

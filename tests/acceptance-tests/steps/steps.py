@@ -6,36 +6,35 @@ from hamcrest import *
 
 @given(u'a .rif file is on disk that describes a GET request from that server')
 def step_impl(context):
-    context.filename = '/vol/tests/test_data/basic-get.rif'
+    context.filename = '/vol/tests/test-data/basic-get.rif'
 
 @when(u'the user runs RIF on that file')
 def step_impl(context):
-    context.result = run_rif([context.filename])
+    context.stdout, context.returncode = run_rif([context.filename])
 
 @then(u'RIF should return an echo of the request it made')
 def step_impl(context):
     expected_result = """
-HTTP/1.1 GET /basic-get
+GET /basic-get HTTP/1.1
+host: localhost:8080
+user-agent: RIF/0.1.0
+accept-encoding: gzip"""[1:]
 
-Host: localhost:8080
-Accept: */*"""
+    print(context.stdout)
     assert_that(
-        preprocess_echo_server(context.result),
-        equal_to(preprocess_expectation(expected_result))
+        context.returncode,
+        equal_to(0),
+    )
+    assert_that(
+        context.stdout,
+        contains_string(expected_result),
     )
 
 
 def run_rif(args):
-    return subprocess.run(
+    result = subprocess.run(
         ['/vol/build/rif'] + args,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
-    ).stdout
-
-def preprocess_echo_server(result):
-    """Trims the hostname off the output from echoserver"""
-    result = result.decode('utf-8')
-    return '\n'.join(result.split('\n')[2:])
-
-def preprocess_expectation(result):
-    return '\n'.join(result.split('\n')[1:])
+    )
+    return (result.stdout.decode('utf8'), result.returncode,)
