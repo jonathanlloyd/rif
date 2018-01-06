@@ -53,6 +53,7 @@ func main() {
 	versionString := fmt.Sprintf("Version: %s\nBuild: %s", version, buildNo)
 	userAgent := fmt.Sprintf("RIF/%s", version)
 	arguments, _ := docopt.Parse(usage, nil, true, versionString, false)
+
 	// Grab the name of the .rif file
 	filenameInt, ok := arguments["<filename>"]
 	if !ok {

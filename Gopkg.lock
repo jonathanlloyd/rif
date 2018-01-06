@@ -2,10 +2,28 @@
 
 
 [[projects]]
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
+  version = "v1.1.0"
+
+[[projects]]
   name = "github.com/docopt/docopt-go"
   packages = ["."]
   revision = "784ddc588536785e7299f7272f39101f7faccc3f"
   version = "0.6.2"
+
+[[projects]]
+  name = "github.com/pmezard/go-difflib"
+  packages = ["difflib"]
+  revision = "792786c7400a136282c1664665ae0a8db921c6c2"
+  version = "v1.0.0"
+
+[[projects]]
+  name = "github.com/stretchr/testify"
+  packages = ["assert"]
+  revision = "b91bfb9ebec76498946beb6af7c0230c7cc7ba6c"
+  version = "v1.2.0"
 
 [[projects]]
   branch = "v2"
@@ -16,6 +34,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "a42027cbf144ede340662a0f22adfb1813ebe058c4159f759a5b1a506ada0b39"
+  inputs-digest = "9cd02b3227f313e8345c594e4258c1f62172002991de40ebb498fb5329482423"
   solver-name = "gps-cdcl"
   solver-version = 1
