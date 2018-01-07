@@ -1,0 +1,5 @@
+language: go
+script: ./scripts/ci
+services:
+  - docker
+sudo: required
