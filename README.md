@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/turingincomplete/rif.svg?branch=master)](https://travis-ci.org/turingincomplete/rif)
+
 ![RIF logo](assets/logo-text.svg)
 ---
 _Requests In Files_
