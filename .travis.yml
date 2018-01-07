@@ -1,3 +1,4 @@
+install: go get -u github.com/golang/dep/cmd/dep
 language: go
 script: ./scripts/ci
 services:
