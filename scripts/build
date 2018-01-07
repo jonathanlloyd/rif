@@ -4,5 +4,10 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 [ -d build ] || mkdir build
-go build -ldflags "-X main.version=$(git describe --abbrev=0 --tags) -X main.buildNo=$(git rev-parse --short HEAD)" -o build/rif cmd/rif.go
+VERSION=$(git describe --abbrev=0 --tags)
+BUILDNO=$(git rev-parse --short HEAD)
+
+echo "Building: RIF version $VERSION, Build No $BUILDNO"
+
+go build -ldflags "-X main.version=$VERSION -X main.buildNo=$BUILDNO" -o build/rif cmd/rif.go
 go build -o build/echo-server tools/echo-server.go
