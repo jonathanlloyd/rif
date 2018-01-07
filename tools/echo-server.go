@@ -40,7 +40,7 @@ func formatRequest(r *http.Request) string {
 
 	// Add headers
 	headerNames := []string{}
-	for headerName, _ := range r.Header {
+	for headerName := range r.Header {
 		headerNames = append(headerNames, headerName)
 	}
 	sort.Strings(headerNames)
