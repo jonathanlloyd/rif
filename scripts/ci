@@ -1,0 +1,31 @@
+#!/bin/bash
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+build_failed() {
+	RED='\033[0;31m'
+	NC='\033[0m'
+	printf "\n${RED}BUILD FAILED ✖${NC}\n"
+	exit 1
+}
+
+echo "Running linter..."
+./scripts/lint || build_failed
+printf "\n"
+
+echo "Running unit tests..."
+./scripts/test || build_failed
+printf "\n"
+
+echo "Running build..."
+./scripts/build || build_failed
+printf "\n"
+
+echo "Running acceptance tests..."
+./scripts/acceptance-test || build_failed
+printf "\n"
+
+GREEN='\033[0;32m'
+NC='\033[0m'
+printf "${GREEN}BUILD PASSED ✓${NC}\n"

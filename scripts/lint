@@ -3,4 +3,4 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-docker run -it -v $PWD:/go/src/rif thisisjonathan/gometalinter gometalinter.v2 /go/src/rif/./... --vendor
+docker run -it -v $PWD:/go/src/github.com/turingincomplete/rif thisisjonathan/gometalinter gometalinter.v2 /go/src/github.com/turingincomplete/rif/./... --vendor

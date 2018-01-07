@@ -43,7 +43,7 @@ var (
 	buildNo string
 )
 
-type RifFile struct {
+type rifFile struct {
 	RifVersion int    `yaml:"rif_version"`
 	URL        string `yaml:"url"`
 	Method     string `yaml:"method"`
@@ -68,8 +68,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	rifFile := RifFile{}
-	err = yaml.Unmarshal(rawFile, &rifFile)
+	rFile := rifFile{}
+	err = yaml.Unmarshal(rawFile, &rFile)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error parsing .rif file: %s\n", err.Error())
 		os.Exit(1)
@@ -78,7 +78,7 @@ func main() {
 	// Make the request
 	client := &http.Client{}
 
-	req, err := http.NewRequest(rifFile.Method, rifFile.URL, nil)
+	req, err := http.NewRequest(rFile.Method, rFile.URL, nil)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error making request: %s\n", err.Error())
 		os.Exit(1)
@@ -90,7 +90,9 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error making request: %s\n", err.Error())
 		os.Exit(1)
 	}
-	defer resp.Body.Close()
+	defer func() {
+		_ = resp.Body.Close()
+	}()
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {

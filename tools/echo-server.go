@@ -12,11 +12,17 @@ const port = 8080
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		fmt.Fprintf(w, formatRequest(req))
+		_, err := fmt.Fprintf(w, formatRequest(req))
+		if err != nil {
+			panic("Error writing HTTP response: " + err.Error())
+		}
 	})
 	fmt.Printf("Listening on port %d\n", port)
 	listenAddr := fmt.Sprintf(":%d", port)
-	http.ListenAndServe(listenAddr, mux)
+	err := http.ListenAndServe(listenAddr, mux)
+	if err != nil {
+		panic("Error starting HTTP server: " + err.Error())
+	}
 }
 
 // formatRequest generates ascii representation of a request
