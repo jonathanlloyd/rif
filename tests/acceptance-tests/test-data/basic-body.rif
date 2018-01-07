@@ -1,0 +1,4 @@
+rif_version: 0
+url: http://localhost:8080/basic-get
+method: POST
+body: test

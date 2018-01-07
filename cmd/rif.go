@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/turingincomplete/rif/internal/pkg/rif2req"
 	"gopkg.in/yaml.v2"
 )
 
@@ -43,15 +44,16 @@ var (
 	buildNo string
 )
 
-type rifFile struct {
-	RifVersion int    `yaml:"rif_version"`
-	URL        string `yaml:"url"`
-	Method     string `yaml:"method"`
+type rifYamlFile struct {
+	RifVersion int               `yaml:"rif_version"`
+	URL        string            `yaml:"url"`
+	Method     string            `yaml:"method"`
+	Headers    map[string]string `yaml:"headers"`
+	Body       string            `yaml:"body"`
 }
 
 func main() {
 	versionString := fmt.Sprintf("Version: %s\nBuild: %s", version, buildNo)
-	userAgent := fmt.Sprintf("RIF/%s", version)
 	arguments, _ := docopt.Parse(usage, nil, true, versionString, false)
 
 	// Grab the name of the .rif file
@@ -68,7 +70,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	rFile := rifFile{}
+	rFile := rifYamlFile{}
 	err = yaml.Unmarshal(rawFile, &rFile)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error parsing .rif file: %s\n", err.Error())
@@ -76,15 +78,21 @@ func main() {
 	}
 
 	// Make the request
-	client := &http.Client{}
-
-	req, err := http.NewRequest(rFile.Method, rFile.URL, nil)
+	req, err := rif2req.Rif2Req(
+		rif2req.RifFileV0{
+			URL:     rFile.URL,
+			Method:  rFile.Method,
+			Headers: rFile.Headers,
+			Body:    &rFile.Body,
+		},
+		version,
+	)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error making request: %s\n", err.Error())
 		os.Exit(1)
 	}
-	req.Header.Add("User-Agent", userAgent)
 
+	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error making request: %s\n", err.Error())

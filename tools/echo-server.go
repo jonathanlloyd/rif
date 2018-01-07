@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"sort"
 	"strings"
 )
 
@@ -37,11 +38,17 @@ func formatRequest(r *http.Request) string {
 	// Add the host
 	request = append(request, fmt.Sprintf("host: %v", r.Host))
 
-	// Loop through headers
-	for name, headers := range r.Header {
-		name = strings.ToLower(name)
-		for _, h := range headers {
-			request = append(request, fmt.Sprintf("%v: %v", name, h))
+	// Add headers
+	headerNames := []string{}
+	for headerName, _ := range r.Header {
+		headerNames = append(headerNames, headerName)
+	}
+	sort.Strings(headerNames)
+
+	for _, name := range headerNames {
+		lowerName := strings.ToLower(name)
+		for _, h := range r.Header[name] {
+			request = append(request, fmt.Sprintf("%v: %v", lowerName, h))
 		}
 	}
 
