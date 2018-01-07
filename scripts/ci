@@ -10,6 +10,10 @@ build_failed() {
 	exit 1
 }
 
+echo "Fetching dependencies..."
+./scripts/fetch || build_failed
+printf "\n"
+
 echo "Running linter..."
 ./scripts/lint || build_failed
 printf "\n"
