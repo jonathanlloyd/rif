@@ -32,6 +32,7 @@ type lexer struct {
 func charState(l *lexer) stateFn {
 	for ; ; l.pos++ {
 		if l.pos > len(l.input)-1 {
+			l.tokens = append(l.tokens, l.input[l.start:l.pos])
 			return nil
 		}
 		char := l.input[l.pos]

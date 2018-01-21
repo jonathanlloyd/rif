@@ -36,6 +36,16 @@ func TestParse(t *testing.T) {
 	assert.Equal(t, "The man's name was Bob", output)
 }
 
+func TestStringWithNoVariablesUnaltered(t *testing.T) {
+	renderFunc, err := templating.Parse("No variables here")
+	assert.Nil(t, err)
+
+	output, err := renderFunc(map[string]string{})
+	assert.Nil(t, err)
+
+	assert.Equal(t, "No variables here", output)
+}
+
 func TestBracesShouldBeClosed(t *testing.T) {
 	testCases := []string{
 		" a} {b}",

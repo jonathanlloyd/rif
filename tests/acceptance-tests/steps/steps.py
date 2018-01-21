@@ -50,6 +50,28 @@ def step_impl(context):
         contains_string(context.expected_result),
     )
 
+@given(u'a .rif file is on disk that has a URL template')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/url-params.rif'
+    context.variables = {
+        'NUM_THINGS': 20,
+    }
+    context.expected_result = """
+GET /url-params?count=20 HTTP/1.1
+host: localhost:8080
+accept-encoding: gzip
+user-agent: RIF/0.1.0"""[1:]
+
+@when(u'the user runs RIF on that file passing in the appropriate variables')
+def step_impl(context):
+    variable_args = [
+        '{}={}'.format(name, value)
+        for name, value in context.variables.items()
+    ]
+    context.stdout, context.returncode = run_rif(
+        [context.filename] + variable_args
+    )
+
 
 def run_rif(args):
     result = subprocess.run(
@@ -57,4 +79,10 @@ def run_rif(args):
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
-    return (result.stdout.decode('utf8'), result.returncode,)
+    return_code = result.returncode
+    output = result.stdout.decode('utf8')
+
+    if return_code != 0:
+        print(output)
+
+    return (output, return_code)
