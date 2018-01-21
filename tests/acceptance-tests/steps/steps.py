@@ -62,6 +62,16 @@ host: localhost:8080
 accept-encoding: gzip
 user-agent: RIF/0.1.0"""[1:]
 
+@given(u'a .rif file is on disk that has a URL template with a default')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/url-params.rif'
+    context.variables = {}
+    context.expected_result = """
+GET /url-params?count=10 HTTP/1.1
+host: localhost:8080
+accept-encoding: gzip
+user-agent: RIF/0.1.0"""[1:]
+
 @when(u'the user runs RIF on that file passing in the appropriate variables')
 def step_impl(context):
     variable_args = [
