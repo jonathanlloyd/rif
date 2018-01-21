@@ -85,6 +85,21 @@ accept-encoding: gzip
 user-agent: RIF/0.1.0
 x-custom-header: header-value"""[1:]
 
+@given(u'a .rif file is on disk that has a body template')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/body-params.rif'
+    context.variables = {
+        'BODY_VALUE': 'body-value',
+    }
+    context.expected_result = """
+POST /body-params HTTP/1.1
+host: localhost:8080
+accept-encoding: gzip
+content-length: 17
+user-agent: RIF/0.1.0
+
+Value: body-value"""[1:]
+
 @when(u'the user runs RIF on that file passing in the appropriate variables')
 def step_impl(context):
     variable_args = [

@@ -141,6 +141,17 @@ func main() {
 	}
 	rFile.Headers = newHeaders
 
+	bodyTemplate, err := templating.Parse(rFile.Body)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error reading body template: %s", err.Error())
+		os.Exit(1)
+	}
+	rFile.Body, err = bodyTemplate(varMap)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error rendering body template: %s", err.Error())
+		os.Exit(1)
+	}
+
 	// Make the request
 	req, err := rif2req.Rif2Req(
 		rif2req.RifFileV0{
