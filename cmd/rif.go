@@ -125,6 +125,22 @@ func main() {
 		os.Exit(1)
 	}
 
+	newHeaders := map[string]string{}
+	for headerName, headerValue := range rFile.Headers {
+		headerTemplate, err := templating.Parse(headerValue)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error reading header template: %s", err.Error())
+			os.Exit(1)
+		}
+		renderedHeader, err := headerTemplate(varMap)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error rendering header template: %s", err.Error())
+			os.Exit(1)
+		}
+		newHeaders[headerName] = renderedHeader
+	}
+	rFile.Headers = newHeaders
+
 	// Make the request
 	req, err := rif2req.Rif2Req(
 		rif2req.RifFileV0{

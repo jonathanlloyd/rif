@@ -23,6 +23,51 @@ import (
 	"testing"
 )
 
+func TestMakeMapShouldWorkForAllTypes(t *testing.T) {
+	variableDefinitions := []map[string]variables.VarDef{
+		{
+			"VAR": variables.VarDef{
+				Type: variables.Boolean,
+			},
+		},
+		{
+			"VAR": variables.VarDef{
+				Type: variables.Number,
+			},
+		},
+		{
+			"VAR": variables.VarDef{
+				Type: variables.String,
+			},
+		},
+	}
+
+	inputVariables := []map[string]string{
+		{
+			"VAR": "true",
+		},
+		{
+			"VAR": "12.3",
+		},
+		{
+			"VAR": "some_string",
+		},
+	}
+
+	for i, _ := range variableDefinitions {
+		varDef := variableDefinitions[i]
+		inputVar := inputVariables[i]
+
+		variableMap, err := variables.MakeMap(varDef, inputVar)
+		assert.Nil(t, err)
+
+		finalVar := variableMap["VAR"]
+		expectedValue := inputVar["VAR"]
+
+		assert.Equal(t, expectedValue, finalVar)
+	}
+}
+
 func TestMakeMapShouldOverrideDefaults(t *testing.T) {
 	variableDefinition := map[string]variables.VarDef{
 		"DONT_OVERRIDE_ME": variables.VarDef{

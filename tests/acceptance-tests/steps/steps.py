@@ -72,6 +72,19 @@ host: localhost:8080
 accept-encoding: gzip
 user-agent: RIF/0.1.0"""[1:]
 
+@given(u'a .rif file is on disk that has a header template')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/header-params.rif'
+    context.variables = {
+        'HEADER_VALUE': 'header-value',
+    }
+    context.expected_result = """
+GET /header-params HTTP/1.1
+host: localhost:8080
+accept-encoding: gzip
+user-agent: RIF/0.1.0
+x-custom-header: header-value"""[1:]
+
 @when(u'the user runs RIF on that file passing in the appropriate variables')
 def step_impl(context):
     variable_args = [

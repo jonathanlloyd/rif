@@ -115,9 +115,9 @@ func validateInputVarTypes(
 		_, intErr := strconv.ParseInt(input, 10, 64)
 		_, floatErr := strconv.ParseFloat(input, 64)
 
-		if (varDef.Type == Boolean && boolErr != nil) ||
-			(varDef.Type == Number && !(intErr == nil || floatErr == nil)) ||
-			(varDef.Type == String) {
+		if ((varDef.Type == Boolean && boolErr != nil) ||
+			(varDef.Type == Number && !(intErr == nil || floatErr == nil))) &&
+			(varDef.Type != String) {
 			return fmt.Errorf(
 				"type of input variable \"%s\" does not match variable definition",
 				varName,
