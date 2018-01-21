@@ -52,7 +52,7 @@ Options:
   --version     Display the current version and build number.
 
 Example:
-  rif my-request.rif count=12 secret="password"
+  rif my-request.rif count=12 secret=password
 `
 
 var (
