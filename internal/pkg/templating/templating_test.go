@@ -18,13 +18,14 @@
 package templating_test
 
 import (
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/turingincomplete/rif/internal/pkg/templating"
-	"testing"
 )
 
 func TestParse(t *testing.T) {
-	renderFunc, err := templating.Parse("The {THING}'s name was {NAME}")
+	renderFunc, err := templating.Parse("The $(THING)'s name was $(NAME)")
 	assert.Nil(t, err)
 
 	output, err := renderFunc(map[string]string{
@@ -46,12 +47,10 @@ func TestStringWithNoVariablesUnaltered(t *testing.T) {
 	assert.Equal(t, "No variables here", output)
 }
 
-func TestBracesShouldBeClosed(t *testing.T) {
+func TestVariablesShouldBeClosed(t *testing.T) {
 	testCases := []string{
-		" a} {b}",
-		"{a  {b}",
-		"{a}  b}",
-		"{a} {b ",
+		"$(a  $(b)",
+		"$(a) $(b ",
 	}
 
 	for _, testCase := range testCases {
@@ -60,11 +59,10 @@ func TestBracesShouldBeClosed(t *testing.T) {
 	}
 }
 
-func TestBracesShouldNotBeNested(t *testing.T) {
+func TestVariablesShouldNotBeNested(t *testing.T) {
 	testCases := []string{
-		"{ { }",
-		"{ } }",
-		"{ {} }",
+		"$($(a))",
+		"$($(a)",
 	}
 
 	for _, testCase := range testCases {
@@ -74,7 +72,7 @@ func TestBracesShouldNotBeNested(t *testing.T) {
 }
 
 func TestAllTemplateVariablesRequired(t *testing.T) {
-	renderFunc, err := templating.Parse("The {THING}'s name was {NAME}")
+	renderFunc, err := templating.Parse("The $(THING)'s name was $(NAME)")
 	assert.Nil(t, err)
 
 	_, err = renderFunc(map[string]string{

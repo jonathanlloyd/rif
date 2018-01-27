@@ -2,7 +2,7 @@ rif_version: 0
 url: http://localhost:8080/header-params
 method: GET
 headers:
-  x-custom-header: "{HEADER_VALUE}"
+  x-custom-header: "$(HEADER_VALUE)"
 variables:
   HEADER_VALUE:
     type: string

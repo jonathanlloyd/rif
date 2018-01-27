@@ -35,17 +35,17 @@ func charState(l *lexer) stateFn {
 			l.tokens = append(l.tokens, l.input[l.start:l.pos])
 			return nil
 		}
+
 		char := l.input[l.pos]
-		switch char {
-		case '{':
-			l.tokens = append(l.tokens, l.input[l.start:l.pos])
+		var prevChar byte
+		if l.pos != 0 {
+			prevChar = l.input[l.pos-1]
+		}
+
+		if prevChar == '$' && char == '(' {
+			l.tokens = append(l.tokens, l.input[l.start:l.pos-1])
 			l.start, l.pos = l.pos+1, l.pos+1
 			return varState
-		case '}':
-			l.errMsg = fmt.Sprintf("Unexpected '}' at character %d", l.pos+1)
-			return nil
-		default:
-			continue
 		}
 	}
 }
@@ -56,12 +56,20 @@ func varState(l *lexer) stateFn {
 			l.errMsg = fmt.Sprintf("Template string terminates in a variable")
 			return nil
 		}
+
 		char := l.input[l.pos]
+		var prevChar byte
+		if l.pos != 0 {
+			prevChar = l.input[l.pos-1]
+		}
+
 		switch char {
-		case '{':
-			l.errMsg = fmt.Sprintf("Unexpected '{' at character %d", l.pos+1)
-			return nil
-		case '}':
+		case '(':
+			if prevChar == '$' {
+				l.errMsg = fmt.Sprintf("Illegal nested variable at character %d", l.pos)
+				return nil
+			}
+		case ')':
 			l.tokens = append(l.tokens, l.input[l.start:l.pos])
 			l.start, l.pos = l.pos+1, l.pos+1
 			return charState
