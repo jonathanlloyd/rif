@@ -1,4 +1,3 @@
-@needs_echo_server
 Feature: .rif file validation
 
 	Scenario: The user makes a request with a higher rif file version
