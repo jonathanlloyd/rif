@@ -19,11 +19,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/docopt/docopt-go"
 	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/docopt/docopt-go"
 
 	"github.com/turingincomplete/rif/internal/app/variables"
 	"github.com/turingincomplete/rif/internal/pkg/rif2req"
@@ -82,60 +83,51 @@ func main() {
 
 	rawFile, err := ioutil.ReadFile(filename)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error reading .rif file: %s\n", err.Error())
-		os.Exit(1)
+		errorAndExit("Error reading .rif file", err)
 	}
 
 	rFile := rifYamlFile{}
 	err = yaml.Unmarshal(rawFile, &rFile)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error parsing .rif file: %s\n", err.Error())
-		os.Exit(1)
+		errorAndExit("Error parsing .rif file", err)
 	}
 
 	// Work out variable values
 	rawVars := arguments["<variable>"].([]string)
 	inputVars, err := parseInputVars(rawVars)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err.Error())
-		os.Exit(1)
+		errorAndExit("Error parsing variables", err)
 	}
 
 	varDefinitions, err := preprocessVariableDefinitions(rFile)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err.Error())
-		os.Exit(1)
+		errorAndExit("Invalid variable definition", err)
 	}
 
 	varMap, err := variables.MakeMap(varDefinitions, inputVars)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Encountered an error calculating template variables: %s\n", err.Error())
-		os.Exit(1)
+		errorAndExit("Encountered an error calculating template variables", err)
 	}
 
 	// Apply template substitutions
 	urlTemplate, err := templating.Parse(rFile.URL)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error reading URL template: %s", err.Error())
-		os.Exit(1)
+		errorAndExit("Error reading URL template", err)
 	}
 	rFile.URL, err = urlTemplate(varMap)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error rendering URL template: %s", err.Error())
-		os.Exit(1)
+		errorAndExit("Error rendering URL template", err)
 	}
 
 	newHeaders := map[string]string{}
 	for headerName, headerValue := range rFile.Headers {
 		headerTemplate, err := templating.Parse(headerValue)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error reading header template: %s", err.Error())
-			os.Exit(1)
+			errorAndExit("Error reading header template", err)
 		}
 		renderedHeader, err := headerTemplate(varMap)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "Error rendering header template: %s", err.Error())
-			os.Exit(1)
+			errorAndExit("Error rendering header template", err)
 		}
 		newHeaders[headerName] = renderedHeader
 	}
@@ -143,13 +135,11 @@ func main() {
 
 	bodyTemplate, err := templating.Parse(rFile.Body)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error reading body template: %s", err.Error())
-		os.Exit(1)
+		errorAndExit("Error reading body template", err)
 	}
 	rFile.Body, err = bodyTemplate(varMap)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error rendering body template: %s", err.Error())
-		os.Exit(1)
+		errorAndExit("Error rendering body template", err)
 	}
 
 	// Make the request
@@ -163,15 +153,13 @@ func main() {
 		version,
 	)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error making request: %s\n", err.Error())
-		os.Exit(1)
+		errorAndExit("Error making request", err)
 	}
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error making request: %s\n", err.Error())
-		os.Exit(1)
+		errorAndExit("Error making request", err)
 	}
 	defer func() {
 		_ = resp.Body.Close()
@@ -179,11 +167,15 @@ func main() {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error making request: %s\n", err.Error())
-		os.Exit(1)
+		errorAndExit("Error making request", err)
 	}
 
 	fmt.Println(string(body))
+}
+
+func errorAndExit(errPrefix string, err error) {
+	fmt.Fprintf(os.Stderr, "%s: %s\n", errPrefix, err.Error())
+	os.Exit(1)
 }
 
 func parseInputVars(rawVars []string) (map[string]string, error) {
