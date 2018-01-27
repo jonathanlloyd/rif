@@ -56,6 +56,8 @@ Example:
   rif my-request.rif count=12 secret=password
 `
 
+const majorVersion = 0
+
 var (
 	version string
 	buildNo string
@@ -90,6 +92,12 @@ func main() {
 	err = yaml.Unmarshal(rawFile, &rFile)
 	if err != nil {
 		errorAndExit("Error parsing .rif file", err)
+	}
+
+	if rFile.RifVersion > majorVersion {
+		errorAndExit("Error parsing .rif file", fmt.Errorf(
+			"rif file version greater than maxium supported version - %d",
+			majorVersion))
 	}
 
 	// Work out variable values

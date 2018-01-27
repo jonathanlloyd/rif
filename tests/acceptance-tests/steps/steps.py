@@ -111,6 +111,23 @@ def step_impl(context):
     )
 
 
+@given(u'a .rif file is on disk that has a higher rif file version')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/bad-version.rif'
+    context.expected_error_msg = "Error parsing .rif file: rif file version " \
+            "greater than maxium supported version - 0"
+
+@then(u'RIF should error')
+def step_impl(context):
+    assert_that(
+        context.returncode,
+        is_not(equal_to(0)),
+    )
+    assert_that(
+        context.stdout,
+        contains_string(context.expected_error_msg),
+    )
+
 def run_rif(args):
     result = subprocess.run(
         ['/vol/build/rif'] + args,
