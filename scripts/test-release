@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+BUILDNO=$(./scripts/buildno) goreleaser --rm-dist --skip-publish --skip-validate

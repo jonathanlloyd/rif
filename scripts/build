@@ -5,27 +5,7 @@ cd "$(dirname "$0")/.."
 
 [ -d build ] || mkdir build
 
-if git diff-index --quiet HEAD --; then
-  UNCOMMITED_CHANGES="false"
-else
-  UNCOMMITED_CHANGES="true"
-fi
-
-if git describe --exact-match HEAD 2> /dev/null; then
-  IS_RELEASE_COMMIT="true"
-else
-  IS_RELEASE_COMMIT="false"
-fi
-
-if $UNCOMMITED_CHANGES == "true"; then
-  SUFFIX="-WIP"
-elif ! $IS_RELEASE_COMMIT == "true"; then
-  SUFFIX="-DEV"
-else
-  SUFFIX=""
-fi
-
-BUILDNO="$(git rev-parse --short HEAD)$SUFFIX"
+BUILDNO="$(./scripts/buildno)"
 VERSION=$(git describe --abbrev=0 --tags)
 
 echo "Building: RIF version $VERSION, Build No $BUILDNO"

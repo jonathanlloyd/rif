@@ -1,2 +1,4 @@
 vendor/
 build/
+dist/
+.github_token

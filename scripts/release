@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+export BUILDNO=$(./scripts/buildno)
+export GITHUB_TOKEN=$(cat .github_token)
+
+goreleaser --rm-dist
