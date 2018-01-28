@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+### Changed
+### Removed
+
+## [0.2.0] - 2018-01-28
+### Added
  - url, header & body templating
  - rif to HTTP request transformation
  - .rif file parsing

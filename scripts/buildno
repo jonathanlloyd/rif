@@ -9,7 +9,7 @@ else
   UNCOMMITED_CHANGES="true"
 fi
 
-if git describe --exact-match HEAD 2> /dev/null; then
+if git describe --exact-match HEAD > /dev/null 2>&1; then
   IS_RELEASE_COMMIT="true"
 else
   IS_RELEASE_COMMIT="false"
@@ -23,5 +23,4 @@ else
   SUFFIX=""
 fi
 
-BUILDNO="$(git rev-parse --short HEAD)$SUFFIX"
-echo $BUILDNO
+echo "$(git rev-parse --short HEAD)$SUFFIX"
