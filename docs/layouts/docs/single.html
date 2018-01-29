@@ -24,19 +24,19 @@
     </div>
   </header>
   <div class="sidebar">
-    <ul>
+    <ul class="sidebar__links">
     {{ $pageScope := . }}
-    {{ range where .Site.Pages "Section" "docs"}}
-      {{if eq .Title $pageScope.Title}}
-        <a class="sidebar__link sidebar__link-highlight" href="{{.Permalink}}">
+    {{ range .Site.Menus.docs }}
+      {{if eq .Name $pageScope.Title}}
+        <a class="sidebar__link sidebar__link-highlight" href="{{.URL}}">
           <li class="sidebar__link-container sidebar__link-container-highlight">
-            {{.Title}}
+            {{.Name}}
           </li>
         </a>
       {{else}}
-        <a class="sidebar__link" href="{{.Permalink}}">
+        <a class="sidebar__link" href="{{.URL}}">
           <li class="sidebar__link-container">
-              {{.Title}}
+              {{.Name}}
           </li>
         </a>
       {{end}}

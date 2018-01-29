@@ -1,3 +1,16 @@
 languageCode = "en-us"
 title = "RIF - (HTTP) Requests In Files"
 baseurl = "https://turingincomplete.github.io/"
+
+[[menu.docs]]
+  name = "Overview"
+  weight = -3
+  url = "/docs/overview/"
+[[menu.docs]]
+  name = "Installation"
+  weight = -2
+  url = "/docs/installation/"
+[[menu.docs]]
+  name = "Getting Started"
+  weight = -1
+  url = "/docs/getting-started/"
