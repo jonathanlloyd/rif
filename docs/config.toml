@@ -1,6 +1,6 @@
 languageCode = "en-us"
 title = "RIF - (HTTP) Requests In Files"
-baseurl = "https://turingincomplete.github.io/"
+baseurl = "https://turingincomplete.github.io/rif"
 
 [[menu.docs]]
   name = "Overview"
