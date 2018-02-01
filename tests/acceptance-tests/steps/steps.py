@@ -11,7 +11,7 @@ def step_impl(context):
 GET /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.2.0"""[1:]
+user-agent: RIF/0.3.0"""[1:]
 
 @given(u'a .rif file is on disk that describes a request with headers')
 def step_impl(context):
@@ -20,7 +20,7 @@ def step_impl(context):
 GET /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.2.0
+user-agent: RIF/0.3.0
 x-test-header: some_value"""[1:]
 
 @given(u'a .rif file is on disk that describes a request with a body')
@@ -31,7 +31,7 @@ POST /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
 content-length: 4
-user-agent: RIF/0.2.0
+user-agent: RIF/0.3.0
 
 test"""[1:]
 
@@ -60,7 +60,7 @@ def step_impl(context):
 GET /url-params?count=20 HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.2.0"""[1:]
+user-agent: RIF/0.3.0"""[1:]
 
 @given(u'a .rif file is on disk that has a URL template with a default')
 def step_impl(context):
@@ -70,7 +70,7 @@ def step_impl(context):
 GET /url-params?count=10 HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.2.0"""[1:]
+user-agent: RIF/0.3.0"""[1:]
 
 @given(u'a .rif file is on disk that has a header template')
 def step_impl(context):
@@ -82,7 +82,7 @@ def step_impl(context):
 GET /header-params HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.2.0
+user-agent: RIF/0.3.0
 x-custom-header: header-value"""[1:]
 
 @given(u'a .rif file is on disk that has a body template')
@@ -96,7 +96,7 @@ POST /body-params HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
 content-length: 17
-user-agent: RIF/0.2.0
+user-agent: RIF/0.3.0
 
 Value: body-value"""[1:]
 
@@ -135,7 +135,7 @@ Request
 -------
 GET /basic-get HTTP/1.1
 Host: localhost:8080
-User-Agent: RIF/0.2.0
+User-Agent: RIF/0.3.0
 Accept-Encoding: gzip
 
 
@@ -149,7 +149,7 @@ Date:
 GET /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.2.0"""[1:]
+user-agent: RIF/0.3.0"""[1:]
     context.stdout, context.returncode = run_rif([
         context.filename,
         '--output=http',
