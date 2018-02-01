@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/http/httputil"
 	"os"
 	"strings"
 
@@ -44,7 +45,7 @@ const usage = `
 (HTTP) Requests In Files
 
 Usage:
-  rif <filename> [<variable>]...
+  rif <filename> [--output=<output-format>] [<variable>]...
   rif -h | --help
   rif --version
 
@@ -173,12 +174,33 @@ func main() {
 		_ = resp.Body.Close()
 	}()
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		errorAndExit("Error making request", err)
-	}
+	// Print the request/response in the appropriate format
+	outputFormat, ok := arguments["--output"].(string)
+	defaultFormat := !ok
+	httpFormat := outputFormat == "http" || outputFormat == "HTTP"
 
-	fmt.Println(string(body))
+	if httpFormat {
+		httpReq, err := httputil.DumpRequestOut(req, true)
+		if err != nil {
+			errorAndExit("Error printing HTTP request", err)
+		}
+		httpResp, err := httputil.DumpResponse(resp, true)
+		if err != nil {
+			errorAndExit("Error printing HTTP response", err)
+		}
+		fmt.Println("Request\n-------")
+		fmt.Println(string(httpReq))
+		fmt.Println("Response\n--------")
+		fmt.Println(string(httpResp))
+	} else if defaultFormat {
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			errorAndExit("Error making request", err)
+		}
+		fmt.Println(string(body))
+	} else {
+		errorAndExit("Unknown output format", fmt.Errorf(outputFormat))
+	}
 }
 
 func errorAndExit(errPrefix string, err error) {

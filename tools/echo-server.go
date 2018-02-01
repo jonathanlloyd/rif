@@ -13,6 +13,7 @@ const port = 8080
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		w.Header().Set("date", "")
 		_, err := fmt.Fprintf(w, formatRequest(req))
 		if err != nil {
 			panic("Error writing HTTP response: " + err.Error())

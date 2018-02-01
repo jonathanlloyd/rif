@@ -128,6 +128,57 @@ def step_impl(context):
         contains_string(context.expected_error_msg),
     )
 
+@when(u'the user runs RIF on that file with a HTTP output format')
+def step_impl(context):
+    context.expected_result = """
+Request
+-------
+GET /basic-get HTTP/1.1
+Host: localhost:8080
+User-Agent: RIF/0.2.0
+Accept-Encoding: gzip
+
+
+Response
+--------
+HTTP/1.1 200 OK
+Content-Length: 90
+Content-Type: text/plain; charset=utf-8
+Date: 
+
+GET /basic-get HTTP/1.1
+host: localhost:8080
+accept-encoding: gzip
+user-agent: RIF/0.2.0"""[1:]
+    context.stdout, context.returncode = run_rif([
+        context.filename,
+        '--output=http',
+    ])
+
+
+@then(u'RIF should return the HTTP/1.x representation of the request/response')
+def step_impl(context):
+    assert_that(
+        context.returncode,
+        equal_to(0),
+    )
+
+    # These are invisible anyway and mess up the test string
+    stdout_without_carriage_returns = context.stdout.replace("\r", "")
+
+    assert_that(
+        stdout_without_carriage_returns,
+        contains_string(context.expected_result),
+    )
+
+@when(u'the user runs RIF on that file with an unknown output format')
+def step_impl(context):
+    context.expected_error_msg = "Unknown output format: NOT_AN_OUTPUT_FORMAT"
+    context.stdout, context.returncode = run_rif([
+        context.filename,
+        '--output=NOT_AN_OUTPUT_FORMAT',
+    ])
+
 def run_rif(args):
     result = subprocess.run(
         ['/vol/build/rif'] + args,
