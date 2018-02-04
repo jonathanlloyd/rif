@@ -22,6 +22,7 @@ User-Agent: RIF/0.3.0
 Accept-Encoding: gzip
 
 
+
 Response
 --------
 HTTP/1.1 200 OK
@@ -50,6 +51,31 @@ x-test-header: some_value"""[1:]
 def step_impl(context):
     context.filename = '/vol/tests/test-data/basic-body.rif'
     context.expected_plain_output = """
+POST /basic-get HTTP/1.1
+host: localhost:8080
+accept-encoding: gzip
+content-length: 4
+user-agent: RIF/0.3.0
+
+test"""[1:]
+    context.expected_http_output = """
+Request
+-------
+POST /basic-get HTTP/1.1
+Host: localhost:8080
+User-Agent: RIF/0.3.0
+Content-Length: 4
+Accept-Encoding: gzip
+
+test
+
+Response
+--------
+HTTP/1.1 200 OK
+Content-Length: 115
+Content-Type: text/plain; charset=utf-8
+Date: 
+
 POST /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip

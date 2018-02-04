@@ -180,7 +180,21 @@ func main() {
 	httpFormat := outputFormat == "http" || outputFormat == "HTTP"
 
 	if httpFormat {
-		httpReq, err := httputil.DumpRequestOut(req, true)
+		newReq, err := rif2req.Rif2Req(
+			rif2req.RifFileV0{
+				URL:     rFile.URL,
+				Method:  rFile.Method,
+				Headers: rFile.Headers,
+				Body:    &rFile.Body,
+			},
+			version,
+		)
+		if err != nil {
+			// This shouldn't happen because we have already made a request
+			// from this rif file, but I'm leaving this here for completeness.
+			errorAndExit("Error printing HTTP request", err)
+		}
+		httpReq, err := httputil.DumpRequestOut(newReq, true)
 		if err != nil {
 			errorAndExit("Error printing HTTP request", err)
 		}
@@ -189,7 +203,7 @@ func main() {
 			errorAndExit("Error printing HTTP response", err)
 		}
 		fmt.Println("Request\n-------")
-		fmt.Println(string(httpReq))
+		fmt.Println(string(httpReq) + "\n")
 		fmt.Println("Response\n--------")
 		fmt.Println(string(httpResp))
 	} else if defaultFormat {
