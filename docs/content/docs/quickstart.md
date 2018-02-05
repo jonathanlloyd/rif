@@ -1,5 +1,5 @@
 +++
-title = "Getting Started"
+title = "Quickstart"
 draft = false
 date = "2018-01-29T22:04:42Z"
 

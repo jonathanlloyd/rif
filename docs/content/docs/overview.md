@@ -4,8 +4,6 @@ draft = false
 date = "2017-12-30T23:56:07Z"
 
 +++
-
-# Introduction
 RIF is a command-line tool and associated template file-format for storing,
 making and sharing HTTP requests. With RIF you can create a `.rif` template file
 that contains all the details and parameters of a HTTP request you frequently
@@ -27,4 +25,4 @@ out the details of individual requests.
 
 # Where next?
 Why not check out the 
-[Getting Started]({{< relref "docs/getting-started.md" >}}) guide?
+[Quickstart]({{< relref "docs/quickstart.md" >}}) guide?

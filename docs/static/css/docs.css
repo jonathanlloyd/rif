@@ -49,8 +49,15 @@ body {
   width: 300px;
 }
 
+.sidebar__header {
+  color: #CC333F;
+  margin-bottom: 0.3em;
+  text-transform: uppercase;
+}
+
 .sidebar__links {
   margin-left: 0;
+  margin-bottom: 1.5em;
 }
 
 .sidebar__links li {

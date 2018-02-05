@@ -2,15 +2,58 @@ languageCode = "en-us"
 title = "RIF - (HTTP) Requests In Files"
 baseurl = "https://turingincomplete.github.io/rif"
 
+
+[[menu.docs]]
+  name = "Getting Started"
+  identifier = "getting-started"
+  weight = -3
 [[menu.docs]]
   name = "Overview"
+  parent = "getting-started"
   weight = -3
   url = "/docs/overview/"
 [[menu.docs]]
   name = "Installation"
+  parent = "getting-started"
   weight = -2
   url = "/docs/installation/"
 [[menu.docs]]
-  name = "Getting Started"
+  name = "Quickstart"
+  parent = "getting-started"
   weight = -1
-  url = "/docs/getting-started/"
+  url = "/docs/quickstart/"
+
+[[menu.docs]]
+  name = "Guides"
+  identifier = "guides"
+  weight = -2
+[[menu.docs]]
+  name = "POSTing JSON"
+  parent = "guides"
+  weight = -3
+  url = "/docs/posting-json/"
+[[menu._docs]]
+  name = "Templates & Variables"
+  parent = "guides"
+  weight = -2
+  url = "/docs/quickstart/"
+[[menu._docs]]
+  name = "Output Formats"
+  parent = "guides"
+  weight = -1
+  url = "/docs/quickstart/"
+
+[[menu._docs]]
+  name = "Reference"
+  identifier = "reference"
+  weight = -1
+[[menu._docs]]
+  name = "Commands (CLI)"
+  parent = "reference"
+  weight = -2
+  url = "/docs/installation/"
+[[menu._docs]]
+  name = "RIF File Format"
+  parent = "reference"
+  weight = -1
+  url = "/docs/quickstart/"
