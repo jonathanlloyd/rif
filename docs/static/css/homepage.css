@@ -123,11 +123,11 @@ body {
 /* Larger than Ultra HD */
 @media (min-width: 2000px) {
   body {
-    font-size: 24pt;
+    font-size: 18pt;
   }
   .hero {
-    top: 50px;
-    width: 1400px;
+    top: 80px;
+    width: 1200px;
   }
   .hero__logo {
     height: 60px;
