@@ -173,3 +173,13 @@ a {
   color: #CC333F;
   text-decoration: none;
 }
+
+/* Larger than Ultra HD */
+@media (min-width: 1600px) {
+  body {
+    font-size: 18pt;
+  }
+  .content {
+    max-width: 1200px;
+  }
+}
