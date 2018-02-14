@@ -152,6 +152,10 @@ p {
   margin-bottom: 1em;
 }
 
+strong {
+  font-weight: bold;
+}
+
 code {
   background: rgba(27,31,35,0.05);
   border-radius: 3px;

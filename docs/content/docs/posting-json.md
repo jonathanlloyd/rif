@@ -1,7 +1,7 @@
 +++
 title = "POSTing JSON"
 draft = false
-date = "2017-12-30T23:56:07Z"
+date = "2018-02-05T21:32:27Z"
 
 +++
 In this guide you will learn how to use RIF to send a `POST` request with a

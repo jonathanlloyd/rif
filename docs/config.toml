@@ -32,11 +32,11 @@ baseurl = "https://turingincomplete.github.io/rif"
   parent = "guides"
   weight = -3
   url = "/docs/posting-json/"
-[[menu._docs]]
-  name = "Templates & Variables"
+[[menu.docs]]
+  name = "Passing Parameters"
   parent = "guides"
   weight = -2
-  url = "/docs/quickstart/"
+  url = "/docs/parameters/"
 [[menu._docs]]
   name = "Output Formats"
   parent = "guides"
