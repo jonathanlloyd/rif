@@ -6,6 +6,11 @@ date = "2018-02-06T09:06:17Z"
 +++
 RIF allows you to pass parameters into your requests from the command line:
 ```
+$ rif my-request.rif api_key="E225A111B0A5BDC6106DEDC6476C1A83"
+```
+
+This is done using RIF Templates and request variables:
+```
 rif_version: 0
 url: "http://httpbin.org/get"
 method: "GET"
@@ -15,10 +20,6 @@ variables:
   API_KEY:
     type: string
 ```
-```
-$ rif my-request.rif api_key="E225A111B0A5BDC6106DEDC6476C1A83"
-```
-This is done using RIF Templates and request variables.
 
 # Templates
 RIF supports template strings in the path, headers and body of your requests.
@@ -39,13 +40,18 @@ with a dollar sign and surrounding it with parentheses:
 ```
 The following is the value of a variable: $(VARIABLE)
 ```
+In this example, the value of `VARIABLE` will be interpolated into the string.
 
 ## Supported Template Locations
 Template strings are supported in the following parts of a RIF file:
 
   - `url`
+    - URL templates can be used to pass in query parameters or change hostnames
   - `headers` (both header names and their values)
+    - Header templates can be used to send custom header values such as api keys
   - `body`
+    - Body templates can be used to add custom fields in the request body
+      such as the parameters in a POST request
 
 # Variables
 Once you have added some templates to your RIF File you will need to define
