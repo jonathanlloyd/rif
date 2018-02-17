@@ -43,7 +43,7 @@ baseurl = "https://jonathanlloyd.github.io/rif"
   weight = -1
   url = "/docs/quickstart/"
 
-[[menu._docs]]
+[[menu.docs]]
   name = "Reference"
   identifier = "reference"
   weight = -1
@@ -52,8 +52,8 @@ baseurl = "https://jonathanlloyd.github.io/rif"
   parent = "reference"
   weight = -2
   url = "/docs/installation/"
-[[menu._docs]]
+[[menu.docs]]
   name = "RIF File Format"
   parent = "reference"
   weight = -1
-  url = "/docs/quickstart/"
+  url = "/docs/fileformat/"

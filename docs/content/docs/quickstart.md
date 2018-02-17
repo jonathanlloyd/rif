@@ -79,3 +79,7 @@ You should now see that the response has changed:
 ```
 
 Congratulations! You have just made and executed your first `.rif` file!
+
+# Where next?
+Why not check out the 
+[RIF File Format]({{< relref "docs/fileformat.md" >}}) documentation?
