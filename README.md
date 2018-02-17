@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/turingincomplete/rif.svg?branch=master)](https://travis-ci.org/turingincomplete/rif)
+[![Go Report Card](https://goreportcard.com/badge/github.com/turingincomplete/rif)](https://goreportcard.com/report/github.com/turingincomplete/rif)
 
 ![RIF logo](assets/logo-text.svg)
 ---
