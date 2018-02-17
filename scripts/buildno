@@ -16,11 +16,11 @@ else
 fi
 
 if $UNCOMMITED_CHANGES == "true"; then
-  SUFFIX="-WIP"
+  SUFFIX=":WIP"
 elif ! $IS_RELEASE_COMMIT == "true"; then
-  SUFFIX="-DEV"
+  SUFFIX=":DEV"
 else
   SUFFIX=""
 fi
 
-echo "$(git rev-parse --short HEAD)$SUFFIX"
+echo "BUILD:$(date | md5sum | rev | cut -c20- | rev):$(git rev-parse --short HEAD)$SUFFIX"

@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+ - Add a unique(ish) prefix to the build number to distinguish builds made
+   from the same commit.
 
 ## [0.3.1] - 2018-02-04
 ### Fixed
