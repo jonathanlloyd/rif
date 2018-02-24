@@ -54,7 +54,7 @@ func TestMakeMapShouldWorkForAllTypes(t *testing.T) {
 		},
 	}
 
-	for i, _ := range variableDefinitions {
+	for i := range variableDefinitions {
 		varDef := variableDefinitions[i]
 		inputVar := inputVariables[i]
 
@@ -70,11 +70,11 @@ func TestMakeMapShouldWorkForAllTypes(t *testing.T) {
 
 func TestMakeMapShouldOverrideDefaults(t *testing.T) {
 	variableDefinition := map[string]variables.VarDef{
-		"DONT_OVERRIDE_ME": variables.VarDef{
+		"DONT_OVERRIDE_ME": {
 			Type:    variables.Boolean,
 			Default: true,
 		},
-		"OVERRIDE_ME": variables.VarDef{
+		"OVERRIDE_ME": {
 			Type:    variables.Boolean,
 			Default: false,
 		},
@@ -95,7 +95,7 @@ func TestMakeMapShouldOverrideDefaults(t *testing.T) {
 
 func TestMakeMapShouldErrorIfNoValue(t *testing.T) {
 	variableDefinition := map[string]variables.VarDef{
-		"NO_VALUE": variables.VarDef{
+		"NO_VALUE": {
 			Type: variables.String,
 		},
 	}
@@ -150,7 +150,7 @@ func TestMakeMapShouldErrorBadInputType(t *testing.T) {
 		},
 	}
 
-	for i, _ := range variableDefinitions {
+	for i := range variableDefinitions {
 		varDefs := variableDefinitions[i]
 		inputVars := inputVariables[i]
 		_, err := variables.MakeMap(varDefs, inputVars)
