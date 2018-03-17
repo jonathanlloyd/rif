@@ -188,9 +188,11 @@ a {
 /* Larger than Ultra HD */
 @media (min-width: 1600px) {
   body {
-    font-size: 18pt;
+    font-size: 14pt;
   }
+
   .content {
-    max-width: 1200px;
+    margin-top: 30px;
+    max-width: 1000px;
   }
 }
