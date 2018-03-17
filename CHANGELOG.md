@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
  - Improved error message when a variable is given an unknown type in a RIF file
+ - Improved error message when required variables are not given
 
 ## [0.3.2] - 2018-02-17
 ### Changed
