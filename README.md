@@ -42,6 +42,13 @@ for all those repetitive requests and never wrestle with cURL again.
 ![Terminal Example](docs/static/img/terminal.svg)
 
 ## Quickstart
+#### Installation
+First you need to make sure that RIF is properly installed.
+Follow the instructions on the 
+[installation page](https://turingincomplete.github.io/rif/docs/installation/) before completing
+this guide.
+
+#### Making Your First Request
 To get started, we will be making a simple GET request to
 [httpbin.org/get](http://httpbin.org/get). This endpoint returns the details
 of GET requests back to the client as JSON.
