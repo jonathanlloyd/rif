@@ -257,7 +257,8 @@ func preprocessVariableDefinitions(
 			varType = variables.String
 		default:
 			return map[string]variables.VarDef{}, fmt.Errorf(
-				"variable definition \"%s\" has invalid type: \"%s\"",
+				"variable definition \"%s\" has invalid type \"%s\". "+
+					"Valid types are boolean, number and string",
 				varName,
 				rawVarDef.Type,
 			)
