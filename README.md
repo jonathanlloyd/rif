@@ -8,10 +8,10 @@
   <a href="https://goreportcard.com/report/github.com/turingincomplete/rif">
     <img src="https://goreportcard.com/badge/github.com/turingincomplete/rif" alt="Go Report Card"/>
   </a>
-  <a href="https://img.shields.io/github/license/turingincomplete/rif.svg">
+  <a href="https://github.com/turingincomplete/rif/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/turingincomplete/rif.svg" alt="GPL3 Licensed"/>
   </a>
-  <a href="https://img.shields.io/github/downloads/turingincomplete/rif/total.svg">
+  <a href="https://github.com/turingincomplete/rif/releases">
     <img src="https://img.shields.io/github/downloads/turingincomplete/rif/total.svg" alt="Download count"/>
   </a>
 </p>
