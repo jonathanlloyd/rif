@@ -113,6 +113,11 @@ func main() {
 		errorAndExit("Invalid variable definition", err)
 	}
 
+	err = variables.ValidateInputVars(varDefinitions, inputVars)
+	if err != nil {
+		errorAndExit("Invalid parameters", err)
+	}
+
 	varMap, err := variables.MakeMap(varDefinitions, inputVars)
 	if err != nil {
 		errorAndExit("Encountered an error calculating template variables", err)

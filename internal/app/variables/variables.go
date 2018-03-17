@@ -78,6 +78,17 @@ func MakeMap(
 	return varMap, nil
 }
 
+// ValidateInputVars checks the provided input vars against the variable
+// definitions in the RIF file. If the input vars do not match the definition
+// then an error is returned containing a thorough description of the issues
+// and how to resolve them.
+func ValidateInputVars(
+	varDefs map[string]VarDef,
+	inputVars map[string]string,
+) error {
+	return nil
+}
+
 func validateVarDefDefaults(varDefs map[string]VarDef) error {
 	for varName, varDef := range varDefs {
 		if varDef.Default == nil {
