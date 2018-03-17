@@ -19,7 +19,9 @@ package variables
 
 import (
 	"fmt"
+	"sort"
 	"strconv"
+	"strings"
 )
 
 // VarType is used to enumerate the different valid types for variable
@@ -34,6 +36,19 @@ const (
 	// String - any other string
 	String
 )
+
+func (v VarType) String() string {
+	switch v {
+	case 0:
+		return "boolean"
+	case 1:
+		return "number"
+	case 2:
+		return "string"
+	default:
+		return "unknown"
+	}
+}
 
 // VarDef represents a variable definition that can be used in template
 // substitution. This includes the type and default value of the variable.
@@ -86,7 +101,68 @@ func ValidateInputVars(
 	varDefs map[string]VarDef,
 	inputVars map[string]string,
 ) error {
+	missingVars := []string{}
+	requiredVars := []string{}
+	optionalVars := []string{}
+
+	for varName, varDef := range varDefs {
+		_, ok := inputVars[varName]
+		varMissing := !ok
+		varRequired := varDef.Default == nil
+		if varMissing && varRequired {
+			missingVars = append(missingVars, varName)
+		}
+		if varRequired {
+			requiredVars = append(requiredVars, varName)
+		}
+		if !varRequired {
+			optionalVars = append(optionalVars, varName)
+		}
+	}
+
+	sort.Strings(missingVars)
+	sort.Strings(requiredVars)
+	sort.Strings(optionalVars)
+
+	if len(missingVars) > 0 {
+		missingVarsString := strings.Join(missingVars, ", ")
+		varsDescription := generateVarsDesc(requiredVars, optionalVars, varDefs)
+		return fmt.Errorf(`
+Missing required variable(s): %s
+
+The variables for this RIF file are as follows:
+%s`, missingVarsString, varsDescription)
+	}
+
 	return nil
+}
+
+func generateVarsDesc(
+	requiredVars []string,
+	optionalVars []string,
+	varDefs map[string]VarDef,
+) string {
+	varsDescription := ""
+	if len(requiredVars) > 0 {
+		varsDescription += "Required:\n"
+		for _, varName := range requiredVars {
+			varDef := varDefs[varName]
+			varsDescription += fmt.Sprintf(" - %s ( %s )\n", varName, varDef.Type)
+		}
+	}
+	if len(optionalVars) > 0 {
+		varsDescription += "Optional:\n"
+		for _, varName := range optionalVars {
+			varDef := varDefs[varName]
+			varsDescription += fmt.Sprintf(
+				" - %s ( %s, default=%s )\n",
+				varName,
+				varDef.Type,
+				varDef.Default,
+			)
+		}
+	}
+	return varsDescription
 }
 
 func validateVarDefDefaults(varDefs map[string]VarDef) error {

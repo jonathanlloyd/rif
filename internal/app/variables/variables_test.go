@@ -18,9 +18,10 @@
 package variables_test
 
 import (
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/turingincomplete/rif/internal/app/variables"
-	"testing"
 )
 
 func TestMakeMapShouldWorkForAllTypes(t *testing.T) {
@@ -156,4 +157,70 @@ func TestMakeMapShouldErrorBadInputType(t *testing.T) {
 		_, err := variables.MakeMap(varDefs, inputVars)
 		assert.NotNil(t, err)
 	}
+}
+
+func TestValidateInputVarsShouldAcceptValidInput(t *testing.T) {
+	varDefs := map[string]variables.VarDef{
+		"REQUIRED_1": variables.VarDef{
+			Type: variables.String,
+		},
+		"REQUIRED_2": variables.VarDef{
+			Type: variables.String,
+		},
+		"OPTIONAL_1": variables.VarDef{
+			Type:    variables.String,
+			Default: "VALUE",
+		},
+		"OPTIONAL_2": variables.VarDef{
+			Type:    variables.String,
+			Default: "VALUE",
+		},
+	}
+
+	inputVars := map[string]string{
+		"REQUIRED_1": "VALUE",
+		"REQUIRED_2": "VALUE",
+	}
+
+	err := variables.ValidateInputVars(varDefs, inputVars)
+
+	assert.Nil(t, err)
+}
+
+func TestValidateInputVarsShouldReturnNiceError(t *testing.T) {
+	varDefs := map[string]variables.VarDef{
+		"REQUIRED_1": variables.VarDef{
+			Type: variables.String,
+		},
+		"REQUIRED_2": variables.VarDef{
+			Type: variables.String,
+		},
+		"OPTIONAL_1": variables.VarDef{
+			Type:    variables.String,
+			Default: "VALUE",
+		},
+		"OPTIONAL_2": variables.VarDef{
+			Type:    variables.String,
+			Default: "VALUE",
+		},
+	}
+
+	inputVars := map[string]string{
+		"REQUIRED_1": "VALUE",
+	}
+
+	expectedErrorMessage := `
+Missing required variable(s): REQUIRED_2
+
+The variables for this RIF file are as follows:
+Required:
+ - REQUIRED_1 ( string )
+ - REQUIRED_2 ( string )
+Optional:
+ - OPTIONAL_1 ( string, default=VALUE )
+ - OPTIONAL_2 ( string, default=VALUE )
+`
+
+	err := variables.ValidateInputVars(varDefs, inputVars)
+	assert.Equal(t, expectedErrorMessage, err.Error())
 }
