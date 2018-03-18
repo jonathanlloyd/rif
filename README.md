@@ -36,8 +36,10 @@
 </p>
 
 ---
-RIF makes working with and testing HTTP APIs a breeze. Create `.rif` files
-for all those repetitive requests and never wrestle with cURL again.
+Keep your Requests In Files.
+
+RIF is a command-line tool that allows you to store repetitive and complex
+HTTP requests as files to make testing and interacting with HTTP APIs a breeze.
 
 ![Terminal Example](docs/static/img/terminal.svg)
 
