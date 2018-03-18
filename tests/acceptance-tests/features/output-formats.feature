@@ -11,6 +11,11 @@ Feature: Output formats
 		When the user runs RIF on that file with a HTTP output format
 		Then RIF should return the HTTP/1.x representation of the request/response
 
+	Scenario: The user makes a request with the cURL output format
+		Given a .rif file is on disk that describes a request with a body
+		When the user runs RIF on that file with the cURL output format
+		Then RIF should return a cURL command equivalent to the request
+
 	Scenario: The user makes a request with an unknown output format
 		Given a .rif file is on disk that describes a GET request
 		When the user runs RIF on that file with an unknown output format

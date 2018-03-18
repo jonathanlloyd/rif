@@ -83,3 +83,17 @@ content-length: 4
 user-agent: RIF/0.3.2
 
 test"""[1:]
+    context.expected_curl_output="""
+cURL command
+------------
+curl -X 'POST' -d 'test' -H 'User-Agent: RIF/0.3.2' 'http://localhost:8080/basic-get'
+
+Response
+--------
+POST /basic-get HTTP/1.1
+host: localhost:8080
+accept-encoding: gzip
+content-length: 4
+user-agent: RIF/0.3.2
+
+test"""[1:]

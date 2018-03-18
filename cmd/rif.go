@@ -27,6 +27,7 @@ import (
 
 	"github.com/docopt/docopt-go"
 
+	"github.com/moul/http2curl"
 	"github.com/turingincomplete/rif/internal/app/variables"
 	"github.com/turingincomplete/rif/internal/pkg/rif2req"
 	"github.com/turingincomplete/rif/internal/pkg/templating"
@@ -54,10 +55,12 @@ Options:
   --version     Display the current version and build number.
 
 Output Formats:
- - http: Readable version of the raw HTTP request/response cycle
+ - default: Returns the http response as given by the server
+ - http: Returns a readable version of the raw HTTP request/response cycle
+ - curl: Returns a cURL command equivalent to the given request
 
 Example:
-  rif my-request.rif count=12 secret=password
+  rif my-request.rif count=12 secret=password --output=http
 `
 
 const majorVersion = 0
@@ -184,8 +187,9 @@ func main() {
 
 	// Print the request/response in the appropriate format
 	outputFormat, ok := arguments["--output"].(string)
-	defaultFormat := !ok
+	defaultFormat := !ok || outputFormat == "default"
 	httpFormat := outputFormat == "http" || outputFormat == "HTTP"
+	curlFormat := outputFormat == "curl" || outputFormat == "cURL"
 
 	if httpFormat {
 		newReq, err := rif2req.Rif2Req(
@@ -214,6 +218,39 @@ func main() {
 		fmt.Println(string(httpReq) + "\n")
 		fmt.Println("Response\n--------")
 		fmt.Println(string(httpResp))
+	} else if curlFormat {
+		newReq, err := rif2req.Rif2Req(
+			rif2req.RifFileV0{
+				URL:     rFile.URL,
+				Method:  rFile.Method,
+				Headers: rFile.Headers,
+				Body:    &rFile.Body,
+			},
+			version,
+		)
+		if err != nil {
+			// This shouldn't happen because we have already made a request
+			// from this rif file, but I'm leaving this here for completeness.
+			errorAndExit("Error printing cURL request", err)
+		}
+
+		curlOutput, err := http2curl.GetCurlCommand(newReq)
+		if err != nil {
+			errorAndExit("Error printing cURL request", err)
+		}
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			errorAndExit("Error making request", err)
+		}
+
+		fmt.Println("cURL command")
+		fmt.Println("------------")
+		fmt.Println(curlOutput)
+		fmt.Println("")
+		fmt.Println("Response")
+		fmt.Println("--------")
+		fmt.Println(string(body))
+
 	} else if defaultFormat {
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
