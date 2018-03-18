@@ -189,7 +189,7 @@ func main() {
 	outputFormat, ok := arguments["--output"].(string)
 	defaultFormat := !ok || outputFormat == "default"
 	httpFormat := outputFormat == "http" || outputFormat == "HTTP"
-	curlFormat := outputFormat == "curl"
+	curlFormat := outputFormat == "curl" || outputFormat == "cURL"
 
 	if httpFormat {
 		newReq, err := rif2req.Rif2Req(
