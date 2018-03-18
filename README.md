@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="https://github.com/turingincomplete/rif/blob/master/assets/logo-text.svg" alt="RIF logo"/>
+  <a href="https://turingincomplete.github.io/rif">
+    <img src="https://github.com/turingincomplete/rif/blob/master/assets/logo-text.svg" alt="RIF logo"/>
+  </a>
 </p>
 <p align="center">
   <a href="https://travis-ci.org/turingincomplete/rif">
