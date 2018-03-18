@@ -53,6 +53,9 @@ Options:
   -h --help     Show this screen.
   --version     Display the current version and build number.
 
+Output Formats:
+ - http: Readable version of the raw HTTP request/response cycle
+
 Example:
   rif my-request.rif count=12 secret=password
 `
