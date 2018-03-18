@@ -14,6 +14,12 @@
   version = "0.6.2"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/moul/http2curl"
+  packages = ["."]
+  revision = "9ac6cf4d929b2fa8fd2d2e6dec5bb0feb4f4911d"
+
+[[projects]]
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
@@ -34,6 +40,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9cd02b3227f313e8345c594e4258c1f62172002991de40ebb498fb5329482423"
+  inputs-digest = "a2f44eec41b11e9790df03f78a09a0d0ef9937b1a08f380a23d83cede9c06153"
   solver-name = "gps-cdcl"
   solver-version = 1
