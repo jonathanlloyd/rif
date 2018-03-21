@@ -43,16 +43,65 @@ Keep your Requests In Files.
 RIF is a command-line tool that allows you to store repetitive and complex
 HTTP requests as files to make testing and interacting with HTTP APIs a breeze.
 
-![Terminal Example](docs/static/img/terminal.svg)
+# Installation
+RIF is distributed as a single binary executable. To install it all you need
+to do is download the correct binary from the
+[downloads page](https://github.com/turingincomplete/rif/releases "Downloads Page")
+and put it somewhere in your path.
 
-## Quickstart
-#### Installation
-First you need to make sure that RIF is properly installed.
-Follow the instructions on the 
-[installation page](https://turingincomplete.github.io/rif/docs/installation/) before completing
-this guide.
+## Verifying Your Installation
+To verify that you have installed RIF correctly, run the following command
+in your terminal:
+```
+$ rif --version
+```
 
-#### Making Your First Request
+If RIF is correctly installed you should see the version and build
+number printed to the screen:
+```
+Version: <expected version number>
+Build: <build number>
+```
+
+## Supported Platforms
+### macOS
+#### Download
+ - If you are running a 64bit system:
+   - `rif_<version>_darwin_amd64.tar.gz`
+ - If you are running a 32bit system:
+   - `rif_<version>_darwin_386.tar.gz`
+
+#### Path
+Extract the appropriate binary and add it to a directory in your
+[path](http://osxdaily.com/2014/08/14/add-new-path-to-path-command-line/ "How to Add a New Path to PATH at Command Line the Right Way").
+We recommend that you put it in `/user/local`.
+
+### Linux
+#### Download
+ - If you are running a 64bit system:
+   - `rif_<version>_linux_amd64.tar.gz`
+ - If you are running a 32bit system:
+   - `rif_<version>_linux_386.tar.gz`
+
+#### Path
+Extract the appropriate binary and add it to a directory in your
+[path](https://www.cyberciti.biz/faq/how-to-add-to-bash-path-permanently-on-linux/ "How to add to bash $PATH permanently on Linux").
+We recommend that you put it in `/usr/local/bin`.
+
+### Windows
+#### Download
+ - If you are running a 64bit system:
+   - `rif_<version>_windows_amd64.tar.gz`
+ - If you are running a 32bit system:
+   - `rif_<version>_windows_386.tar.gz`
+
+#### Path
+Extract the appropriate binary and add it to a directory in your
+[path](https://stackoverflow.com/questions/1618280/where-can-i-set-path-to-make-exe-on-windows "Where can I set the path on Windows?").
+We recommend that you put it in `c:\RIF` and add this directory to your path.
+
+# Quickstart
+## Making Your First Request
 To get started, we will be making a simple GET request to
 [httpbin.org/get](http://httpbin.org/get). This endpoint returns the details
 of GET requests back to the client as JSON.
@@ -95,8 +144,7 @@ If all goes well you should see something like the following:
 }
 ```
 
-### Variable Templating
-
+## Variable Templating
 Now let's use RIF's variable templating feature to override our welcome message.
 Paste the following command into your terminal:
 ```
