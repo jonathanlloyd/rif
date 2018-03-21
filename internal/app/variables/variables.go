@@ -155,7 +155,7 @@ func generateVarsDesc(
 		for _, varName := range optionalVars {
 			varDef := varDefs[varName]
 			varsDescription += fmt.Sprintf(
-				" - %s ( %s, default=%s )\n",
+				" - %s ( %s, default=%+v )\n",
 				varName,
 				varDef.Type,
 				varDef.Default,
