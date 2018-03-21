@@ -12,13 +12,13 @@ def step_impl(context):
 GET /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.4.0"""[1:]
+user-agent: RIF/0.4.1"""[1:]
     context.expected_http_output = """
 Request
 -------
 GET /basic-get HTTP/1.1
 Host: localhost:8080
-User-Agent: RIF/0.4.0
+User-Agent: RIF/0.4.1
 Accept-Encoding: gzip
 
 
@@ -33,7 +33,7 @@ Date:
 GET /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.4.0"""[1:]
+user-agent: RIF/0.4.1"""[1:]
 
 
 @given(u'a .rif file is on disk that describes a request with headers')
@@ -43,7 +43,7 @@ def step_impl(context):
 GET /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.4.0
+user-agent: RIF/0.4.1
 x-test-header: some_value"""[1:]
 
 
@@ -55,7 +55,7 @@ POST /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
 content-length: 4
-user-agent: RIF/0.4.0
+user-agent: RIF/0.4.1
 
 test"""[1:]
     context.expected_http_output = """
@@ -63,7 +63,7 @@ Request
 -------
 POST /basic-get HTTP/1.1
 Host: localhost:8080
-User-Agent: RIF/0.4.0
+User-Agent: RIF/0.4.1
 Content-Length: 4
 Accept-Encoding: gzip
 
@@ -80,13 +80,13 @@ POST /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
 content-length: 4
-user-agent: RIF/0.4.0
+user-agent: RIF/0.4.1
 
 test"""[1:]
     context.expected_curl_output="""
 cURL command
 ------------
-curl -X 'POST' -d 'test' -H 'User-Agent: RIF/0.4.0' 'http://localhost:8080/basic-get'
+curl -X 'POST' -d 'test' -H 'User-Agent: RIF/0.4.1' 'http://localhost:8080/basic-get'
 
 Response
 --------
@@ -94,6 +94,6 @@ POST /basic-get HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
 content-length: 4
-user-agent: RIF/0.4.0
+user-agent: RIF/0.4.1
 
 test"""[1:]
