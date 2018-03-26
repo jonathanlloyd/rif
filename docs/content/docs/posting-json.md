@@ -94,16 +94,16 @@ headers:
   content-type: "application/json"
 body: |
   {
-    "message": "$(MESSAGE)"
+    "message": "$(body)"
   }
 variables:
-  MESSAGE:
+  body:
     type: "string"
 ```
 
 You can now pass in a message as a command line argument when calling RIF:
 ```
-$ rif post-json-body.rif MESSAGE="RIF Rocks!"
+$ rif post-json-body.rif body="RIF Rocks!"
 ```
 
 And you should see the result returned in the request response:

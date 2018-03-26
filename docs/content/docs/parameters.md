@@ -15,9 +15,9 @@ rif_version: 0
 url: "http://httpbin.org/get"
 method: "GET"
 headers:
-  Authorization: "Bearer $(API_KEY)"
+  Authorization: "Bearer $(api_key)"
 variables:
-  API_KEY:
+  api_key:
     type: string
 ```
 
@@ -27,20 +27,20 @@ RIF supports template strings in the path, headers and body of your requests.
 **Example:**
 ```
 rif_version: 0
-url: "http://httpbin.org/get?message=$(MESSAGE)"
+url: "http://httpbin.org/get?message=$(value)"
 method: "GET"
 ```
 In this example, the RIF File contains a template in the path of the
-request. When RIF is run on this file, the value of the `MESSAGE` variable
+request. When RIF is run on this file, the value of the `value` variable
 will be interpolated into the path.
 
 ## Syntax
 You add a template variable to your RIF File by prepending the variable name
 with a dollar sign and surrounding it with parentheses:
 ```
-The following is the value of a variable: $(VARIABLE)
+The following is the value of a variable: $(variable)
 ```
-In this example, the value of `VARIABLE` will be interpolated into the string.
+In this example, the value of `variable` will be interpolated into the string.
 
 ## Supported Template Locations
 Template strings are supported in the following parts of a RIF file:
@@ -60,10 +60,10 @@ substitute.
 
 ```
 rif_version: 0
-url: "http://httpbin.org/get?message=$(MESSAGE)"
+url: "http://httpbin.org/get?message=$(value)"
 method: "GET"
 variables:
-  MESSAGE:
+  value:
     type: string
     default: "Hello"
 ```

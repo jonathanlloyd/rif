@@ -22,10 +22,10 @@ Open your editor of choice and save the following file to your computer
 as `gethttpbin.rif`:
 ```
 rif_version: 0
-url: "http://httpbin.org/get?message=hello%20$(PLACE)"
+url: "http://httpbin.org/get?message=hello%20$(place)"
 method: "GET"
 variables:
-  PLACE:
+  place:
     type: "string"
     default: "world"
 ```
@@ -58,7 +58,7 @@ If all goes well you should see something like the following:
 Now let's use RIF's variable templating feature to override our welcome message.
 Paste the following command into your terminal:
 ```
-$ rif ./gethttpbin.rif PLACE=universe
+$ rif ./gethttpbin.rif place=universe
 ```
 
 You should now see that the response has changed:
