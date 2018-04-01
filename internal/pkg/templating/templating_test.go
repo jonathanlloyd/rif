@@ -20,8 +20,8 @@ package templating_test
 import (
 	"testing"
 
+	"github.com/jonathanlloyd/rif/internal/pkg/templating"
 	"github.com/stretchr/testify/assert"
-	"github.com/turingincomplete/rif/internal/pkg/templating"
 )
 
 func TestParse(t *testing.T) {

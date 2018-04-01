@@ -1,7 +1,7 @@
 project_name: rif
 release:
   github:
-    owner: turingincomplete
+    owner: jonathanlloyd
     name: rif
   name_template: '{{.Tag}}'
 builds:

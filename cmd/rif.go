@@ -27,10 +27,10 @@ import (
 
 	"github.com/docopt/docopt-go"
 
+	"github.com/jonathanlloyd/rif/internal/app/variables"
+	"github.com/jonathanlloyd/rif/internal/pkg/rif2req"
+	"github.com/jonathanlloyd/rif/internal/pkg/templating"
 	"github.com/moul/http2curl"
-	"github.com/turingincomplete/rif/internal/app/variables"
-	"github.com/turingincomplete/rif/internal/pkg/rif2req"
-	"github.com/turingincomplete/rif/internal/pkg/templating"
 	"gopkg.in/yaml.v2"
 )
 

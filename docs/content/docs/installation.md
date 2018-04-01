@@ -6,7 +6,7 @@ date = "2017-12-30T21:14:46Z"
 +++
 RIF is distributed as a single binary executable. To install it all you need
 to do is download the correct binary from the
-[downloads page](https://github.com/turingincomplete/rif/releases "Downloads Page")
+[downloads page](https://github.com/jonathanlloyd/rif/releases "Downloads Page")
 and put it somewhere in your path.
 
 # Verifying Your Installation

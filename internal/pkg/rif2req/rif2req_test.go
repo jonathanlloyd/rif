@@ -18,10 +18,11 @@
 package rif2req_test
 
 import (
-	"github.com/turingincomplete/rif/internal/pkg/rif2req"
 	"io/ioutil"
 	"strings"
 	"testing"
+
+	"github.com/jonathanlloyd/rif/internal/pkg/rif2req"
 
 	"github.com/stretchr/testify/assert"
 )

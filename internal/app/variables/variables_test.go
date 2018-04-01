@@ -20,8 +20,8 @@ package variables_test
 import (
 	"testing"
 
+	"github.com/jonathanlloyd/rif/internal/app/variables"
 	"github.com/stretchr/testify/assert"
-	"github.com/turingincomplete/rif/internal/app/variables"
 )
 
 func TestMakeMapShouldWorkForAllTypes(t *testing.T) {

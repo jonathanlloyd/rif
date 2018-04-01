@@ -8,7 +8,7 @@ rm -rf public
 hugo
 cd public
 git init
-git remote add pages git@github.com:turingincomplete/rif.git
+git remote add pages git@github.com:jonathanlloyd/rif.git
 git add :/
 git commit -m "Docs Build"
 git push -f pages master:gh-pages

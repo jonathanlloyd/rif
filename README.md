@@ -1,37 +1,37 @@
 <p align="center">
-  <a href="https://turingincomplete.github.io/rif">
-    <img src="https://github.com/turingincomplete/rif/blob/master/assets/logo-text.svg" alt="RIF logo"/>
+  <a href="https://jonathanlloyd.github.io/rif">
+    <img src="https://github.com/jonathanlloyd/rif/blob/master/assets/logo-text.svg" alt="RIF logo"/>
   </a>
 </p>
 <p align="center">
-  <a href="https://travis-ci.org/turingincomplete/rif">
-    <img src="https://travis-ci.org/turingincomplete/rif.svg?branch=master" alt="Build Status"/>
+  <a href="https://travis-ci.org/jonathanlloyd/rif">
+    <img src="https://travis-ci.org/jonathanlloyd/rif.svg?branch=master" alt="Build Status"/>
   </a>
-  <a href="https://goreportcard.com/report/github.com/turingincomplete/rif">
-    <img src="https://goreportcard.com/badge/github.com/turingincomplete/rif" alt="Go Report Card"/>
+  <a href="https://goreportcard.com/report/github.com/jonathanlloyd/rif">
+    <img src="https://goreportcard.com/badge/github.com/jonathanlloyd/rif" alt="Go Report Card"/>
   </a>
-  <a href="https://github.com/turingincomplete/rif/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/turingincomplete/rif.svg" alt="GPL3 Licensed"/>
+  <a href="https://github.com/jonathanlloyd/rif/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/jonathanlloyd/rif.svg" alt="GPL3 Licensed"/>
   </a>
-  <a href="https://github.com/turingincomplete/rif/releases">
-    <img src="https://img.shields.io/github/downloads/turingincomplete/rif/total.svg" alt="Download count"/>
+  <a href="https://github.com/jonathanlloyd/rif/releases">
+    <img src="https://img.shields.io/github/downloads/jonathanlloyd/rif/total.svg" alt="Download count"/>
   </a>
 </p>
 <p align="center">
   <b>
-    <a href="https://turingincomplete.github.io/rif">
+    <a href="https://jonathanlloyd.github.io/rif">
       Website
     </a>
   </b>
   &nbsp;|&nbsp;
   <b>
-    <a href="https://turingincomplete.github.io/rif/docs/quickstart/">
+    <a href="https://jonathanlloyd.github.io/rif/docs/quickstart/">
       Documentation
     </a>
   </b>
   &nbsp;|&nbsp;
   <b>
-    <a href="https://github.com/turingincomplete/rif/releases">
+    <a href="https://github.com/jonathanlloyd/rif/releases">
       Download
     </a>
   </b>
@@ -46,7 +46,7 @@ HTTP requests as files to make testing and interacting with HTTP APIs a breeze.
 # Installation
 RIF is distributed as a single binary executable. To install it all you need
 to do is download the correct binary from the
-[downloads page](https://github.com/turingincomplete/rif/releases "Downloads Page")
+[downloads page](https://github.com/jonathanlloyd/rif/releases "Downloads Page")
 and put it somewhere in your path.
 
 ## Verifying Your Installation
