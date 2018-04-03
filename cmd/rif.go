@@ -18,6 +18,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -27,6 +28,8 @@ import (
 
 	"github.com/docopt/docopt-go"
 
+	"github.com/jonathanlloyd/rif/internal/app/fileversions"
+	"github.com/jonathanlloyd/rif/internal/app/validation"
 	"github.com/jonathanlloyd/rif/internal/app/variables"
 	"github.com/jonathanlloyd/rif/internal/pkg/rif2req"
 	"github.com/jonathanlloyd/rif/internal/pkg/templating"
@@ -70,18 +73,6 @@ var (
 	buildNo string
 )
 
-type rifYamlFile struct {
-	RifVersion int               `yaml:"rif_version"`
-	URL        string            `yaml:"url"`
-	Method     string            `yaml:"method"`
-	Headers    map[string]string `yaml:"headers"`
-	Body       string            `yaml:"body"`
-	Variables  map[string]struct {
-		Type    string      `yaml:"type"`
-		Default interface{} `yaml:"default"`
-	} `yaml:"variables"`
-}
-
 // nolint: gocyclo
 func main() {
 	versionString := fmt.Sprintf("Version: %s\nBuild: %s", version, buildNo)
@@ -95,13 +86,22 @@ func main() {
 		errorAndExit("Error reading .rif file", err)
 	}
 
-	rFile := rifYamlFile{}
+	rFile := fileversions.RifYamlFileV0{}
 	err = yaml.Unmarshal(rawFile, &rFile)
 	if err != nil {
 		errorAndExit("Error parsing .rif file", err)
 	}
 
-	if rFile.RifVersion > majorVersion {
+	validationErrs := validation.ValidateRifYamlFile(rFile)
+	if len(validationErrs) > 0 {
+		errString := ""
+		for _, err := range validationErrs {
+			errString += "\n - " + err.Error()
+		}
+		errorAndExit("Invalid RIF file", errors.New(errString))
+	}
+
+	if *rFile.RifVersion > majorVersion {
 		errorAndExit("Error parsing .rif file", fmt.Errorf(
 			"rif file version greater than maxium supported version - %d",
 			majorVersion))
@@ -130,11 +130,12 @@ func main() {
 	}
 
 	// Apply template substitutions
-	urlTemplate, err := templating.Parse(rFile.URL)
+	urlTemplate, err := templating.Parse(*rFile.URL)
 	if err != nil {
 		errorAndExit("Error reading URL template", err)
 	}
-	rFile.URL, err = urlTemplate(varMap)
+	renderedURL, err := urlTemplate(varMap)
+	rFile.URL = &renderedURL
 	if err != nil {
 		errorAndExit("Error rendering URL template", err)
 	}
@@ -164,9 +165,9 @@ func main() {
 
 	// Make the request
 	req, err := rif2req.Rif2Req(
-		rif2req.RifFileV0{
-			URL:     rFile.URL,
-			Method:  rFile.Method,
+		fileversions.RifFileV0{
+			URL:     *rFile.URL,
+			Method:  *rFile.Method,
 			Headers: rFile.Headers,
 			Body:    &rFile.Body,
 		},
@@ -193,9 +194,9 @@ func main() {
 
 	if httpFormat {
 		newReq, err := rif2req.Rif2Req(
-			rif2req.RifFileV0{
-				URL:     rFile.URL,
-				Method:  rFile.Method,
+			fileversions.RifFileV0{
+				URL:     *rFile.URL,
+				Method:  *rFile.Method,
 				Headers: rFile.Headers,
 				Body:    &rFile.Body,
 			},
@@ -220,9 +221,9 @@ func main() {
 		fmt.Println(string(httpResp))
 	} else if curlFormat {
 		newReq, err := rif2req.Rif2Req(
-			rif2req.RifFileV0{
-				URL:     rFile.URL,
-				Method:  rFile.Method,
+			fileversions.RifFileV0{
+				URL:     *rFile.URL,
+				Method:  *rFile.Method,
 				Headers: rFile.Headers,
 				Body:    &rFile.Body,
 			},
@@ -288,7 +289,7 @@ func parseInputVars(rawVars []string) (map[string]string, error) {
 }
 
 func preprocessVariableDefinitions(
-	rFile rifYamlFile,
+	rFile fileversions.RifYamlFileV0,
 ) (map[string]variables.VarDef, error) {
 	varDefinitions := map[string]variables.VarDef{}
 	for varName, rawVarDef := range rFile.Variables {

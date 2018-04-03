@@ -22,16 +22,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-)
 
-// RifFileV0 is an in-memory representation of the unversioned beta .rif file
-// format
-type RifFileV0 struct {
-	URL     string
-	Method  string
-	Headers map[string]string
-	Body    *string
-}
+	"github.com/jonathanlloyd/rif/internal/app/fileversions"
+)
 
 var httpMethods = []string{
 	"CONNECT",
@@ -47,7 +40,7 @@ var httpMethods = []string{
 
 // Rif2Req takes a parsed .rif file and returns an equivalent stdlib http
 // request struct
-func Rif2Req(rFile RifFileV0, rifVersion string) (*http.Request, error) {
+func Rif2Req(rFile fileversions.RifFileV0, rifVersion string) (*http.Request, error) {
 	// Validate rFile
 	isValidMethod := false
 	for _, method := range httpMethods {

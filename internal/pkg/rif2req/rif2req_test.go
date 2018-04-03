@@ -22,6 +22,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/jonathanlloyd/rif/internal/app/fileversions"
 	"github.com/jonathanlloyd/rif/internal/pkg/rif2req"
 
 	"github.com/stretchr/testify/assert"
@@ -29,7 +30,7 @@ import (
 
 // Rif2Req should correctly set req method
 func TestMethodSet(t *testing.T) {
-	rFile := rif2req.RifFileV0{
+	rFile := fileversions.RifFileV0{
 		URL:    "http://example.com/test",
 		Method: "GET",
 	}
@@ -40,7 +41,7 @@ func TestMethodSet(t *testing.T) {
 
 // Rif2Req should correctly set req URL
 func TestURLSet(t *testing.T) {
-	rFile := rif2req.RifFileV0{
+	rFile := fileversions.RifFileV0{
 		URL:    "http://example.com/test",
 		Method: "GET",
 	}
@@ -53,7 +54,7 @@ func TestURLSet(t *testing.T) {
 
 // Rif2Req should correctly set user agent
 func TestUserAgentSet(t *testing.T) {
-	rFile := rif2req.RifFileV0{
+	rFile := fileversions.RifFileV0{
 		URL:    "http://example.com/test",
 		Method: "GET",
 	}
@@ -65,7 +66,7 @@ func TestUserAgentSet(t *testing.T) {
 
 // Rif2Req should correctly set additional req headers
 func TestHeadersSet(t *testing.T) {
-	rFile := rif2req.RifFileV0{
+	rFile := fileversions.RifFileV0{
 		URL:    "http://example.com/test",
 		Method: "GET",
 		Headers: map[string]string{
@@ -81,7 +82,7 @@ func TestHeadersSet(t *testing.T) {
 // Rif2Req should correctly set req body
 func TestBodySet(t *testing.T) {
 	body := "test_body"
-	rFile := rif2req.RifFileV0{
+	rFile := fileversions.RifFileV0{
 		URL:    "http://example.com/test",
 		Method: "POST",
 		Body:   &body,
@@ -108,7 +109,7 @@ func TestValidMethods(t *testing.T) {
 	}
 
 	for _, method := range httpMethods {
-		rFile := rif2req.RifFileV0{
+		rFile := fileversions.RifFileV0{
 			URL:    "http://example.com/test",
 			Method: method,
 		}
@@ -120,7 +121,7 @@ func TestValidMethods(t *testing.T) {
 
 // Rif2Req should reject invalid HTTP methods
 func TestInvalidMethods(t *testing.T) {
-	rFile := rif2req.RifFileV0{
+	rFile := fileversions.RifFileV0{
 		URL:    "http://example.com/test",
 		Method: "BAD_METHOD",
 	}
