@@ -52,12 +52,6 @@ your shell:
 curl -Lo rif.tar $(curl https://api.github.com/repos/jonathanlloyd/rif/releases/latest 2>/dev/null | grep -o http[^[:space:]]*linux_amd64\.tar\.gz) 2>/dev/null && tar -xf rif.tar rif && chmod +x rif && sudo mv rif /usr/local/bin/rif && rm ./rif.tar
 ```
 
-## Manual Install (other platforms)
-RIF is distributed as a single binary executable. To install it all you need
-to do is download the correct binary from the
-[downloads page](https://github.com/jonathanlloyd/rif/releases "Downloads Page")
-and put it somewhere in your path.
-
 ## Verifying Your Installation
 To verify that you have installed RIF correctly, run the following command
 in your terminal:
@@ -71,6 +65,12 @@ number printed to the screen:
 Version: <expected version number>
 Build: <build number>
 ```
+
+## Manual Install (other platforms)
+RIF is distributed as a single binary executable. To install it all you need
+to do is download the correct binary from the
+[downloads page](https://github.com/jonathanlloyd/rif/releases "Downloads Page")
+and put it somewhere in your path.
 
 ## Supported Platforms
 ### macOS
