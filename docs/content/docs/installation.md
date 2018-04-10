@@ -4,6 +4,15 @@ draft = false
 date = "2017-12-30T21:14:46Z"
 
 +++
+# Quick Install
+## Linux (64bit)
+To install/upgrade RIF on a standard 64bit linux install, run the following in
+your shell:
+```
+curl -Lo rif.tar $(curl https://api.github.com/repos/jonathanlloyd/rif/releases/latest 2>/dev/null | grep -o http[^[:space:]]*linux_amd64\.tar\.gz) 2>/dev/null && tar -xf rif.tar rif && chmod +x rif && sudo mv rif /usr/local/bin/rif && rm ./rif.tar
+```
+
+# Manual Install (other platforms)
 RIF is distributed as a single binary executable. To install it all you need
 to do is download the correct binary from the
 [downloads page](https://github.com/jonathanlloyd/rif/releases "Downloads Page")
