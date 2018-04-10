@@ -44,7 +44,7 @@ RIF is a command-line tool that allows you to store repetitive and complex
 HTTP requests as files to make testing and interacting with HTTP APIs a breeze.
 
 # Installation
-## Quick Install
+## Quick Install/Upgrade
 ### Linux (64bit)
 To install/upgrade RIF on a standard 64bit linux install, run the following in
 your shell:

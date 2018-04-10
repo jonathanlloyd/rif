@@ -4,7 +4,7 @@ draft = false
 date = "2017-12-30T21:14:46Z"
 
 +++
-# Quick Install
+# Quick Install/Upgrade
 ## Linux (64bit)
 To install/upgrade RIF on a standard 64bit linux install, run the following in
 your shell:
