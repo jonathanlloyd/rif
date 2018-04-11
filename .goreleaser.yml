@@ -1,11 +1,10 @@
 project_name: rif
 brew:
-  name: rif
   description: "File-based HTTP client for API developers"
   homepage: https://jonathanlloyd.github.io/rif
   github:
-    owner: jonathanlloyd
     name: homebrew-rif
+    owner: jonathanlloyd
   commit_author:
     name: goreleaserbot
     email: goreleaserbot@thisisjonathan.com

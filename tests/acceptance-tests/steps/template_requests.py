@@ -15,7 +15,7 @@ def step_impl(context):
 GET /url-params?count=20 HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.4.1"""[1:]
+user-agent: RIF/0.4.2"""[1:]
 
 
 @given(u'a .rif file is on disk that has a URL template with a default')
@@ -26,7 +26,7 @@ def step_impl(context):
 GET /url-params?count=10 HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.4.1"""[1:]
+user-agent: RIF/0.4.2"""[1:]
 
 
 @given(u'a .rif file is on disk that has a header template')
@@ -39,7 +39,7 @@ def step_impl(context):
 GET /header-params HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
-user-agent: RIF/0.4.1
+user-agent: RIF/0.4.2
 x-custom-header: header-value"""[1:]
 
 
@@ -54,7 +54,7 @@ POST /body-params HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
 content-length: 17
-user-agent: RIF/0.4.1
+user-agent: RIF/0.4.2
 
 Value: body-value"""[1:]
 
