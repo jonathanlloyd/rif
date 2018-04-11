@@ -45,6 +45,11 @@ HTTP requests as files to make testing and interacting with HTTP APIs a breeze.
 
 # Installation
 ## Quick Install/Upgrade
+### MacOS (64bit)
+To install/upgrade RIF on MacOS use the RIF brew tap:
+```
+brew install jonathanlloyd/rif/rif
+```
 ### Linux (64bit)
 To install/upgrade RIF on a standard 64bit linux install, run the following in
 your shell:

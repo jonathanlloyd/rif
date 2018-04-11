@@ -5,6 +5,11 @@ date = "2017-12-30T21:14:46Z"
 
 +++
 # Quick Install/Upgrade
+## MacOS (64bit)
+To install/upgrade RIF on MacOS use the RIF brew tap:
+```
+brew install jonathanlloyd/rif/rif
+```
 ## Linux (64bit)
 To install/upgrade RIF on a standard 64bit linux install, run the following in
 your shell:
