@@ -36,12 +36,13 @@ func TestValidFileValidates(t *testing.T) {
 		Method:     &method,
 	}
 
-	errs := validation.ValidateRifYamlFile(yamlFileStruct)
+	errs := validation.ValidateRifYamlFile(yamlFileStruct, version)
 
 	assert.Equal(t, 0, len(errs))
 }
 
 func TestRifFileVersionShouldBeRequired(t *testing.T) {
+	version := 0
 	url := "http://example.com"
 	method := "GET"
 
@@ -50,8 +51,48 @@ func TestRifFileVersionShouldBeRequired(t *testing.T) {
 		Method: &method,
 	}
 
-	errs := validation.ValidateRifYamlFile(yamlFileStruct)
+	errs := validation.ValidateRifYamlFile(yamlFileStruct, version)
 
 	assert.Equal(t, 1, len(errs))
 	assert.Contains(t, "rif_version is required", errs[0].Error())
+}
+
+func TestRifFileVersionShouldBePositive(t *testing.T) {
+	rifVersion := 0
+	fileVersion := -1
+	url := "http://example.com"
+	method := "GET"
+
+	yamlFileStruct := fileversions.RifYamlFileV0{
+		RifVersion: &fileVersion,
+		URL:        &url,
+		Method:     &method,
+	}
+
+	errs := validation.ValidateRifYamlFile(yamlFileStruct, rifVersion)
+
+	assert.Equal(t, 1, len(errs))
+	assert.Contains(t, "rif_version must be positive", errs[0].Error())
+}
+
+func TestRifFileVersionShouldNotBeAheadOfMajor(t *testing.T) {
+	rifVersion := 1
+	fileVersion := 10
+	url := "http://example.com"
+	method := "GET"
+
+	yamlFileStruct := fileversions.RifYamlFileV0{
+		RifVersion: &fileVersion,
+		URL:        &url,
+		Method:     &method,
+	}
+
+	errs := validation.ValidateRifYamlFile(yamlFileStruct, rifVersion)
+
+	assert.Equal(t, 1, len(errs))
+	assert.Contains(
+		t,
+		"rif_version must not be greater than the maximum supported version (1)",
+		errs[0].Error(),
+	)
 }

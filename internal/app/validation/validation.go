@@ -19,17 +19,36 @@ package validation
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/jonathanlloyd/rif/internal/app/fileversions"
 )
 
 // ValidateRifYamlFile takes a struct that represents an unmarshalled RIF file
 // and returns a slice of errors listing any validation errors detected
-func ValidateRifYamlFile(rFile fileversions.RifYamlFileV0) []error {
+func ValidateRifYamlFile(
+	rFile fileversions.RifYamlFileV0,
+	rifMajorVersion int,
+) []error {
 	errs := []error{}
 
+	// Validate file version
 	if rFile.RifVersion == nil {
 		errs = append(errs, errors.New("rif_version is required"))
+	} else {
+		rifVersion := *rFile.RifVersion
+		if rifVersion < 0 {
+			errs = append(errs, errors.New("rif_version must be positive"))
+		}
+		if rifVersion > rifMajorVersion {
+			errs = append(
+				errs,
+				fmt.Errorf(
+					"rif_version must not be greater than the maximum supported version (%d)",
+					rifMajorVersion,
+				),
+			)
+		}
 	}
 
 	return errs

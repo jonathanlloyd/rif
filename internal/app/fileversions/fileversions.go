@@ -19,15 +19,19 @@ package fileversions
 
 // RifYamlFileV0 is the struct used to unmarshal V0 of the RIF file format
 type RifYamlFileV0 struct {
-	RifVersion *int              `yaml:"rif_version"`
-	URL        *string           `yaml:"url"`
-	Method     *string           `yaml:"method"`
-	Headers    map[string]string `yaml:"headers"`
-	Body       string            `yaml:"body"`
-	Variables  map[string]struct {
-		Type    string      `yaml:"type"`
-		Default interface{} `yaml:"default"`
-	} `yaml:"variables"`
+	RifVersion *int                         `yaml:"rif_version"`
+	URL        *string                      `yaml:"url"`
+	Method     *string                      `yaml:"method"`
+	Headers    map[string]string            `yaml:"headers"`
+	Body       string                       `yaml:"body"`
+	Variables  map[string]RifYamlVariableV0 `yaml:"variables"`
+}
+
+// RifYamlVariableV0 is a struct used to unmarshal the variable schema portion
+// of V0 of the RIF file format
+type RifYamlVariableV0 struct {
+	Type    string      `yaml:"type"`
+	Default interface{} `yaml:"default"`
 }
 
 // RifFileV0 is an in-memory representation of the unversioned beta .rif file
