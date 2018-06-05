@@ -9,15 +9,17 @@ from common import *
 def step_impl(context):
     context.filename = '/vol/tests/test-data/no-version.rif'
     context.expected_error_msg = """
-Invalid RIF file: 
+Invalid .rif file: 
  - rif_version is required
  """[1:-1]
 
 @given(u'a .rif file is on disk that has a higher rif file version')
 def step_impl(context):
     context.filename = '/vol/tests/test-data/bad-version.rif'
-    context.expected_error_msg = "Error parsing .rif file: rif file version " \
-            "greater than maxium supported version - 0"
+    context.expected_error_msg = """
+Invalid .rif file: 
+ - rif_version must not be greater than the maximum supported version (0)
+ """[1:-1]
 
 @given(u'a .rif file is on disk that has some required variables')
 def step_impl(context):
