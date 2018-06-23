@@ -43,6 +43,78 @@ Keep your Requests In Files.
 RIF is a command-line tool that allows you to store repetitive and complex
 HTTP requests as files to make testing and interacting with HTTP APIs a breeze.
 
+
+# Quickstart
+## Making Your First Request
+To get started, we will be making a simple GET request to
+[httpbin.org/get](http://httpbin.org/get). This endpoint returns the details
+of GET requests back to the client as JSON.
+
+We will be passing in a URL parameter called `message` that is parameterised
+using RIFs variable templating feature.
+
+Open your editor of choice and save the following file to your computer
+as `gethttpbin.rif`:
+```
+rif_version: 0
+url: "http://httpbin.org/get?message=hello%20$(place)"
+method: "GET"
+variables:
+  place:
+    type: "string"
+    default: "world"
+```
+
+Next, open your terminal in the same location and run RIF,
+passing in the file you just created:
+```
+$ rif ./gethttpbin.rif
+```
+
+If all goes well you should see something like the following:
+```
+{
+  "args": {
+    "message": "hello world"
+  }, 
+  "headers": {
+    "Accept-Encoding": "gzip", 
+    "Connection": "close", 
+    "Host": "httpbin.org", 
+    "User-Agent": "RIF/0.2.0"
+  }, 
+  "origin": "<YOUR IP ADDRESS>", 
+  "url": "http://httpbin.org/get?message=hello world"
+}
+```
+
+## Variable Templating
+Now let's use RIF's variable templating feature to override our welcome message.
+Paste the following command into your terminal:
+```
+$ rif ./gethttpbin.rif place=universe
+```
+
+You should now see that the response has changed:
+```
+{
+  "args": {
+    "message": "hello universe"
+  }, 
+  "headers": {
+    "Accept-Encoding": "gzip", 
+    "Connection": "close", 
+    "Host": "httpbin.org", 
+    "User-Agent": "RIF/0.2.0"
+  }, 
+  "origin": "<YOUR IP ADDRESS>", 
+  "url": "http://httpbin.org/get?message=hello universe"
+}
+```
+
+Congratulations! You have just made and executed your first `.rif` file!
+
+
 # Installation
 ## Quick Install/Upgrade
 ### MacOS (64bit)
@@ -114,72 +186,3 @@ Extract the appropriate binary and add it to a directory in your
 [path](https://stackoverflow.com/questions/1618280/where-can-i-set-path-to-make-exe-on-windows "Where can I set the path on Windows?").
 We recommend that you put it in `c:\RIF` and add this directory to your path.
 
-# Quickstart
-## Making Your First Request
-To get started, we will be making a simple GET request to
-[httpbin.org/get](http://httpbin.org/get). This endpoint returns the details
-of GET requests back to the client as JSON.
-
-We will be passing in a URL parameter called `message` that is parameterised
-using RIFs variable templating feature.
-
-Open your editor of choice and save the following file to your computer
-as `gethttpbin.rif`:
-```
-rif_version: 0
-url: "http://httpbin.org/get?message=hello%20$(place)"
-method: "GET"
-variables:
-  place:
-    type: "string"
-    default: "world"
-```
-
-Next, open your terminal in the same location and run RIF,
-passing in the file you just created:
-```
-$ rif ./gethttpbin.rif
-```
-
-If all goes well you should see something like the following:
-```
-{
-  "args": {
-    "message": "hello world"
-  }, 
-  "headers": {
-    "Accept-Encoding": "gzip", 
-    "Connection": "close", 
-    "Host": "httpbin.org", 
-    "User-Agent": "RIF/0.2.0"
-  }, 
-  "origin": "<YOUR IP ADDRESS>", 
-  "url": "http://httpbin.org/get?message=hello world"
-}
-```
-
-## Variable Templating
-Now let's use RIF's variable templating feature to override our welcome message.
-Paste the following command into your terminal:
-```
-$ rif ./gethttpbin.rif place=universe
-```
-
-You should now see that the response has changed:
-```
-{
-  "args": {
-    "message": "hello universe"
-  }, 
-  "headers": {
-    "Accept-Encoding": "gzip", 
-    "Connection": "close", 
-    "Host": "httpbin.org", 
-    "User-Agent": "RIF/0.2.0"
-  }, 
-  "origin": "<YOUR IP ADDRESS>", 
-  "url": "http://httpbin.org/get?message=hello universe"
-}
-```
-
-Congratulations! You have just made and executed your first `.rif` file!
