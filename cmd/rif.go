@@ -76,9 +76,9 @@ var (
 // RIF only really does one thing (make a HTTP request based on the file you
 // give it), so this main function is really all there is to it.
 // It should go something like this:
-//  - Parse the arguments given on the command-line
-//  - Parse the given RIF file
-//  - Validate the given RIF file
+//  - Parse the given RIF file to produce the request and variable definitions
+//  - Parse the arguments given on the command-line and combine them with the
+//    given variable definitions to produce a map from variable name -> value
 //  - Iterpolate any variables passed in into any templated fields in the
 //    RIF file. This can include any of the major parts of the request:
 //      - URL
@@ -95,6 +95,10 @@ func main() {
 	versionString := fmt.Sprintf("Version: %s\nBuild: %s", version, buildNo)
 	arguments, _ := docopt.Parse(usage, nil, true, versionString, false)
 
+	/**
+	 * Step 1 - Parse the given RIF file to produce a request definition
+	 * and a slice of variable definitions
+	**/
 	filename := arguments["<filename>"].(string)
 	rawFile, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -116,34 +120,48 @@ func main() {
 		errorAndExit("Invalid .rif file", errors.New(errString))
 	}
 
-	// Here we have an array of raw variables from the command line in the form:
-	// "var_name=value"
+	reqDef := fileversions.RifFileV0{
+		URL:     *yamlStruct.URL,
+		Method:  *yamlStruct.Method,
+		Headers: yamlStruct.Headers,
+		Body:    &yamlStruct.Body,
+	}
+
+	varDefs, err := makeVariableSchema(yamlStruct.Variables)
+	if err != nil {
+		errorAndExit("Invalid .rif file", err)
+	}
+
+	/**
+	 * Step 2 - Parse the variables given over the command line and combine
+	 * them with the default values in the RIF file's variable definitions to
+	 * produce a mapping from variable name to value.
+	**/
 	rawVars := arguments["<variable>"].([]string)
-	// We need to parse the raw variables and combine them with the
-	// schema defined in the yaml file to product a mapping from variable name to
-	// value with all the defaulting and type checking sorted out.
-	varMap, err := calculateVariableValues(rawVars, yamlStruct.Variables)
+
+	inputVarMap, err := parseInputVars(rawVars)
 	if err != nil {
 		errorAndExit("Invalid parameters", err)
 	}
 
-	// We can then iterpolate the variables into the different parts of the
-	// request:
-	yamlStruct, err = substituteVariableValues(varMap, yamlStruct)
+	varMap, err := calculateVariableValues(inputVarMap, varDefs)
+	if err != nil {
+		errorAndExit("Invalid parameters", err)
+	}
+
+	/**
+	 * Step 3 - Substitute the calculated variable values into any template
+	 * strings in the request definition
+	**/
+	reqDef, err = substituteVariableValues(varMap, reqDef)
 	if err != nil {
 		errorAndExit("Error interpolating variables", err)
 	}
 
-	// Make the request
-	req, err := rif2req.Rif2Req(
-		fileversions.RifFileV0{
-			URL:     *yamlStruct.URL,
-			Method:  *yamlStruct.Method,
-			Headers: yamlStruct.Headers,
-			Body:    &yamlStruct.Body,
-		},
-		version,
-	)
+	/**
+	 * Step 4 - Execute the http request
+	**/
+	req, err := rif2req.Rif2Req(reqDef, version)
 	if err != nil {
 		errorAndExit("Error making request", err)
 	}
@@ -157,7 +175,9 @@ func main() {
 		_ = resp.Body.Close()
 	}()
 
-	// Print the request/response in the appropriate format
+	/**
+	 * Step 5 - Print the request/response in the selected format
+	**/
 	outputFormat, ok := arguments["--output"].(string)
 	defaultFormat := !ok || outputFormat == "default"
 	httpFormat := outputFormat == "http" || outputFormat == "HTTP"
@@ -246,27 +266,17 @@ func errorAndExit(errPrefix string, err error) {
 // variable name to value with all the defaulting and type-checking sorted
 // out.
 func calculateVariableValues(
-	rawVars []string,
-	yamlVarDefs map[string]fileversions.RifYamlVariableV0,
+	inputVarMap map[string]string,
+	varDefs map[string]variables.VarDef,
 ) (map[string]string, error) {
 	emptyMap := map[string]string{}
 
-	inputVars, err := parseInputVars(rawVars)
+	err := variables.ValidateInputVars(varDefs, inputVarMap)
 	if err != nil {
 		return emptyMap, err
 	}
 
-	variableSchema, err := makeVariableSchema(yamlVarDefs)
-	if err != nil {
-		return emptyMap, err
-	}
-
-	err = variables.ValidateInputVars(variableSchema, inputVars)
-	if err != nil {
-		return emptyMap, err
-	}
-
-	varMap, err := variables.MakeMap(variableSchema, inputVars)
+	varMap, err := variables.MakeMap(varDefs, inputVarMap)
 	if err != nil {
 		return emptyMap, err
 	}
@@ -346,8 +356,8 @@ func makeVariableSchema(
 // strings that exist in the file.
 func substituteVariableValues(
 	varMap map[string]string,
-	yamlStruct fileversions.RifYamlFileV0,
-) (fileversions.RifYamlFileV0, error) {
+	reqDef fileversions.RifFileV0,
+) (fileversions.RifFileV0, error) {
 	applyTemplate := func(templateString string) (string, error) {
 		template, err := templating.Parse(templateString)
 		if err != nil {
@@ -359,29 +369,29 @@ func substituteVariableValues(
 		}
 		return renderedString, nil
 	}
-	emptyYaml := fileversions.RifYamlFileV0{}
+	emptyReqDef := fileversions.RifFileV0{}
 
-	renderedURL, urlErr := applyTemplate(*yamlStruct.URL)
+	renderedURL, urlErr := applyTemplate(reqDef.URL)
 	if urlErr != nil {
-		return emptyYaml, urlErr
+		return emptyReqDef, urlErr
 	}
-	yamlStruct.URL = &renderedURL
+	reqDef.URL = renderedURL
 
 	newHeaders := map[string]string{}
-	for headerName, headerValue := range yamlStruct.Headers {
+	for headerName, headerValue := range reqDef.Headers {
 		renderedHeader, headerErr := applyTemplate(headerValue)
 		if headerErr != nil {
-			return emptyYaml, headerErr
+			return emptyReqDef, headerErr
 		}
 		newHeaders[headerName] = renderedHeader
 	}
-	yamlStruct.Headers = newHeaders
+	reqDef.Headers = newHeaders
 
-	renderedBody, bodyErr := applyTemplate(yamlStruct.Body)
+	renderedBody, bodyErr := applyTemplate(*reqDef.Body)
 	if bodyErr != nil {
-		return emptyYaml, bodyErr
+		return emptyReqDef, bodyErr
 	}
-	yamlStruct.Body = renderedBody
+	reqDef.Body = &renderedBody
 
-	return yamlStruct, nil
+	return reqDef, nil
 }
