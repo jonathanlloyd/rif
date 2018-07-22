@@ -25,23 +25,26 @@ import (
 )
 
 func TestParse(t *testing.T) {
-	renderFunc, err := templating.Parse("The $(THING)'s name was $(NAME)")
-	assert.Nil(t, err)
-
-	output, err := renderFunc(map[string]string{
+	templateString := "The $(THING)'s name was $(NAME)"
+	vars := map[string]string{
 		"THING": "man",
 		"NAME":  "Bob",
-	})
+	}
+
+	output, err := templating.ApplyTemplate(templateString, vars)
 	assert.Nil(t, err)
 
 	assert.Equal(t, "The man's name was Bob", output)
 }
 
 func TestStringWithNoVariablesUnaltered(t *testing.T) {
-	renderFunc, err := templating.Parse("No variables here")
-	assert.Nil(t, err)
+	templateString := "No variables here"
+	vars := map[string]string{
+		"THING": "man",
+		"NAME":  "Bob",
+	}
 
-	output, err := renderFunc(map[string]string{})
+	output, err := templating.ApplyTemplate(templateString, vars)
 	assert.Nil(t, err)
 
 	assert.Equal(t, "No variables here", output)
@@ -54,7 +57,7 @@ func TestVariablesShouldBeClosed(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		_, err := templating.Parse(testCase)
+		_, err := templating.ApplyTemplate(testCase, map[string]string{})
 		assert.NotNil(t, err)
 	}
 }
@@ -66,17 +69,17 @@ func TestVariablesShouldNotBeNested(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		_, err := templating.Parse(testCase)
+		_, err := templating.ApplyTemplate(testCase, map[string]string{})
 		assert.NotNil(t, err)
 	}
 }
 
 func TestAllTemplateVariablesRequired(t *testing.T) {
-	renderFunc, err := templating.Parse("The $(THING)'s name was $(NAME)")
-	assert.Nil(t, err)
-
-	_, err = renderFunc(map[string]string{
+	templateString := "The $(THING)'s name was $(NAME)"
+	vars := map[string]string{
 		"THING": "man",
-	})
+	}
+
+	_, err := templating.ApplyTemplate(templateString, vars)
 	assert.NotNil(t, err)
 }

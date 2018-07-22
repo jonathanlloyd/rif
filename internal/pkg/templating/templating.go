@@ -19,6 +19,47 @@ package templating
 
 import "fmt"
 
+// ApplyTemplate is used to substitute variable values into a given template
+// string. If the template string is malformed or a variable is missing from
+// the variable name -> value map, then an error is returned.
+// Template Language:
+//   The template language provided by this module looks like this:
+//     "This is a variable: $(VAR_NAME)"
+//   When { "VAR_NAME": "value" } is substituted into this template
+//   ApplyTemplate will return:
+//     "This is a variable: value"
+func ApplyTemplate(templateStr string, vars map[string]string) (string, error) {
+	l := lexer{input: templateStr}
+
+	state := charState(&l)
+	for state != nil {
+		state = state(&l)
+	}
+	if l.errMsg != "" {
+		return "", fmt.Errorf(l.errMsg)
+	}
+
+	var output string
+
+	for i, tok := range l.tokens {
+		isVar := i%2 != 0
+		if isVar {
+			value, ok := vars[tok]
+			if !ok {
+				return "", fmt.Errorf(
+					"Template variable %s not found in data provided",
+					tok,
+				)
+			}
+			output += value
+		} else {
+			output += tok
+		}
+	}
+
+	return output, nil
+}
+
 type stateFn func(*lexer) stateFn
 
 type lexer struct {
@@ -77,48 +118,4 @@ func varState(l *lexer) stateFn {
 			continue
 		}
 	}
-}
-
-// RenderFunc is a function that represents a parsed template string.
-// It takes a map which contains the variables to be substituted into
-// the template. If a variable in the template string is not given
-// an error will be returned.
-type RenderFunc func(map[string]string) (string, error)
-
-// Parse is a function that parses the given template string and returns
-// a function that can be used to render that string with substitutions.
-func Parse(templateStr string) (RenderFunc, error) {
-	l := lexer{input: templateStr}
-
-	state := charState(&l)
-	for state != nil {
-		state = state(&l)
-	}
-	if l.errMsg != "" {
-		return nil, fmt.Errorf(l.errMsg)
-	}
-
-	render := func(data map[string]string) (string, error) {
-		var output string
-
-		for i, tok := range l.tokens {
-			isVar := i%2 != 0
-			if isVar {
-				value, ok := data[tok]
-				if !ok {
-					return "", fmt.Errorf(
-						"Template variable %s not found in data provided",
-						tok,
-					)
-				}
-				output += value
-			} else {
-				output += tok
-			}
-		}
-
-		return output, nil
-	}
-
-	return render, nil
 }
