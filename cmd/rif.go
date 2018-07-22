@@ -358,20 +358,9 @@ func substituteVariableValues(
 	varMap map[string]string,
 	reqDef fileversions.RifFileV0,
 ) (fileversions.RifFileV0, error) {
-	applyTemplate := func(templateString string) (string, error) {
-		template, err := templating.Parse(templateString)
-		if err != nil {
-			return "", err
-		}
-		renderedString, err := template(varMap)
-		if err != nil {
-			return "", err
-		}
-		return renderedString, nil
-	}
 	emptyReqDef := fileversions.RifFileV0{}
 
-	renderedURL, urlErr := applyTemplate(reqDef.URL)
+	renderedURL, urlErr := templating.ApplyTemplate(reqDef.URL, varMap)
 	if urlErr != nil {
 		return emptyReqDef, urlErr
 	}
@@ -379,7 +368,7 @@ func substituteVariableValues(
 
 	newHeaders := map[string]string{}
 	for headerName, headerValue := range reqDef.Headers {
-		renderedHeader, headerErr := applyTemplate(headerValue)
+		renderedHeader, headerErr := templating.ApplyTemplate(headerValue, varMap)
 		if headerErr != nil {
 			return emptyReqDef, headerErr
 		}
@@ -387,7 +376,7 @@ func substituteVariableValues(
 	}
 	reqDef.Headers = newHeaders
 
-	renderedBody, bodyErr := applyTemplate(*reqDef.Body)
+	renderedBody, bodyErr := templating.ApplyTemplate(*reqDef.Body, varMap)
 	if bodyErr != nil {
 		return emptyReqDef, bodyErr
 	}
