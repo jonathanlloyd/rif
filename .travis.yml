@@ -1,5 +1,6 @@
-install: go get -u github.com/golang/dep/cmd/dep
 language: go
+go:
+  - 1.11.x
 script: ./scripts/ci
 services:
   - docker
