@@ -79,7 +79,7 @@ var (
 //  - Parse the given RIF file to produce the request and variable definitions
 //  - Parse the arguments given on the command-line and combine them with the
 //    given variable definitions to produce a map from variable name -> value
-//  - Iterpolate any variables passed in into any templated fields in the
+//  - Interpolate any variables passed in into any templated fields in the
 //    RIF file. This can include any of the major parts of the request:
 //      - URL
 //      - Headers
@@ -97,7 +97,7 @@ func main() {
 
 	/**
 	 * Step 1 - Parse the given RIF file to produce a request definition
-	 * and a slice of variable definitions
+	 * and a map defining the schema for the variables declared in the file
 	**/
 	filename := arguments["<filename>"].(string)
 	rawFile, err := ioutil.ReadFile(filename)
