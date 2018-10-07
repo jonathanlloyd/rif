@@ -5,3 +5,5 @@ script: ./scripts/ci
 services:
   - docker
 sudo: required
+env:
+  - GO111MODULE=on
