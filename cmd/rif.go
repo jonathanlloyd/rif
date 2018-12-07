@@ -93,7 +93,7 @@ var (
 // nolint: gocyclo
 func main() {
 	versionString := fmt.Sprintf("Version: %s\nBuild: %s", version, buildNo)
-	arguments, _ := docopt.Parse(usage, nil, true, versionString, false)
+	arguments, _ := docopt.ParseArgs(usage, os.Args[1:], versionString)
 
 	/**
 	 * Step 1 - Parse the given RIF file to produce a request definition
