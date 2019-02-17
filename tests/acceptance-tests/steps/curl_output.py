@@ -11,6 +11,18 @@ def step_impl(context):
         '--output=curl',
     ])
 
+@when(u'the user runs RIF on that file passing in the cURL output flag and variables')
+def step_impl(context):
+    variable_args = [
+        '{}={}'.format(name, value)
+        for name, value in context.variables.items()
+    ]
+    context.stdout, context.returncode = run_rif([
+        context.filename,
+        *variable_args,
+        '--output=curl',
+    ])
+
 @then(u'RIF should return a cURL command equivalent to the request')
 def step_impl(context):
     assert_that(
