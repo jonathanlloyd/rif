@@ -165,6 +165,9 @@ func main() {
 	if err != nil {
 		errorAndExit("Error making request", err)
 	}
+	// Need a second copy for printing in different output modes
+	// Performing the request consumes the body reader
+	printReq, _ := rif2req.Rif2Req(reqDef, version)
 
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -184,21 +187,7 @@ func main() {
 	curlFormat := outputFormat == "curl" || outputFormat == "cURL"
 
 	if httpFormat {
-		newReq, err := rif2req.Rif2Req(
-			fileversions.RifFileV0{
-				URL:     *yamlStruct.URL,
-				Method:  *yamlStruct.Method,
-				Headers: yamlStruct.Headers,
-				Body:    &yamlStruct.Body,
-			},
-			version,
-		)
-		if err != nil {
-			// This shouldn't happen because we have already made a request
-			// from this rif file, but I'm leaving this here for completeness.
-			errorAndExit("Error printing HTTP request", err)
-		}
-		httpReq, err := httputil.DumpRequestOut(newReq, true)
+		httpReq, err := httputil.DumpRequestOut(printReq, true)
 		if err != nil {
 			errorAndExit("Error printing HTTP request", err)
 		}
@@ -211,22 +200,7 @@ func main() {
 		fmt.Println("Response\n--------")
 		fmt.Println(string(httpResp))
 	} else if curlFormat {
-		newReq, err := rif2req.Rif2Req(
-			fileversions.RifFileV0{
-				URL:     *yamlStruct.URL,
-				Method:  *yamlStruct.Method,
-				Headers: yamlStruct.Headers,
-				Body:    &yamlStruct.Body,
-			},
-			version,
-		)
-		if err != nil {
-			// This shouldn't happen because we have already made a request
-			// from this rif file, but I'm leaving this here for completeness.
-			errorAndExit("Error printing cURL request", err)
-		}
-
-		curlOutput, err := http2curl.GetCurlCommand(newReq)
+		curlOutput, err := http2curl.GetCurlCommand(printReq)
 		if err != nil {
 			errorAndExit("Error printing cURL request", err)
 		}

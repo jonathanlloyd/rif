@@ -16,6 +16,40 @@ GET /url-params?count=20 HTTP/1.1
 host: localhost:8080
 accept-encoding: gzip
 user-agent: RIF/0.4.3"""[1:]
+    context.expected_http_output = """
+Request
+-------
+GET /url-params?count=20 HTTP/1.1
+Host: localhost:8080
+User-Agent: RIF/0.4.3
+Accept-Encoding: gzip
+
+
+
+Response
+--------
+HTTP/1.1 200 OK
+Content-Length: 100
+Content-Type: text/plain; charset=utf-8
+Date: 
+
+GET /url-params?count=20 HTTP/1.1
+host: localhost:8080
+accept-encoding: gzip
+user-agent: RIF/0.4.3"""[1:]
+    context.expected_curl_output="""
+cURL command
+------------
+curl -X 'GET' -d '' -H 'User-Agent: RIF/0.4.3' 'http://localhost:8080/url-params?count=20'
+
+Response
+--------
+GET /url-params?count=20 HTTP/1.1
+host: localhost:8080
+accept-encoding: gzip
+user-agent: RIF/0.4.3
+
+"""[1:]
 
 
 @given(u'a .rif file is on disk that has a URL template with a default')

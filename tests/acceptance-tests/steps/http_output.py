@@ -12,6 +12,18 @@ def step_impl(context):
         '--output=http',
     ])
 
+@when(u'the user runs RIF on that file passing in the HTTP output flag and variables')
+def step_impl(context):
+    variable_args = [
+        '{}={}'.format(name, value)
+        for name, value in context.variables.items()
+    ]
+    context.stdout, context.returncode = run_rif([
+        context.filename,
+        *variable_args,
+        '--output=http',
+    ])
+
 
 @when(u'the user runs RIF on that file with an unknown output format')
 def step_impl(context):
