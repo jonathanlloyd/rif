@@ -46,7 +46,7 @@ const usage = `
 ██║  ██║██║██║     
 ╚═╝  ╚═╝╚═╝╚═╝     
                    
-(HTTP) Requests In Files
+(HTTP) Requests In Files - checks test
 
 Usage:
   rif <filename> [--output=<output-format>] [<variable>]...
