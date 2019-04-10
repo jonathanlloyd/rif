@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [0.4.4] - 2018-02-17
+## [0.4.4] - 2019-02-17
 ### Fixed
  - Bug where template variables were not interpolated into alternative output
    formats (HTTP / cURL)
