@@ -26,33 +26,9 @@ import (
 	"github.com/jonathanlloyd/rif/internal/app/fileversions"
 )
 
-var httpMethods = []string{
-	"CONNECT",
-	"DELETE",
-	"GET",
-	"HEAD",
-	"OPTIONS",
-	"PATCH",
-	"POST",
-	"PUT",
-	"TRACE",
-}
-
 // Rif2Req takes a parsed .rif file and returns an equivalent stdlib http
 // request struct
 func Rif2Req(rFile fileversions.RifFileV0, rifVersion string) (*http.Request, error) {
-	// Validate rFile
-	isValidMethod := false
-	for _, method := range httpMethods {
-		if method == rFile.Method {
-			isValidMethod = true
-			break
-		}
-	}
-	if !isValidMethod {
-		return nil, fmt.Errorf("Method %s is invalid", rFile.Method)
-	}
-
 	// Create request
 	var body io.Reader
 	if rFile.Body != nil {

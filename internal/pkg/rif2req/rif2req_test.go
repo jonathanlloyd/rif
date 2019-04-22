@@ -93,39 +93,3 @@ func TestBodySet(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "test_body", string(reqBody))
 }
-
-// Rif2Req should accept valid HTTP methods
-func TestValidMethods(t *testing.T) {
-	httpMethods := []string{
-		"CONNECT",
-		"DELETE",
-		"GET",
-		"HEAD",
-		"OPTIONS",
-		"PATCH",
-		"POST",
-		"PUT",
-		"TRACE",
-	}
-
-	for _, method := range httpMethods {
-		rFile := fileversions.RifFileV0{
-			URL:    "http://example.com/test",
-			Method: method,
-		}
-		_, err := rif2req.Rif2Req(rFile, "1.0.0")
-
-		assert.Nil(t, err)
-	}
-}
-
-// Rif2Req should reject invalid HTTP methods
-func TestInvalidMethods(t *testing.T) {
-	rFile := fileversions.RifFileV0{
-		URL:    "http://example.com/test",
-		Method: "BAD_METHOD",
-	}
-
-	_, err := rif2req.Rif2Req(rFile, "1.0.0")
-	assert.NotNil(t, err)
-}

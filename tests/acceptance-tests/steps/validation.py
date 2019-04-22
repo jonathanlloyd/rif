@@ -21,6 +21,38 @@ Invalid .rif file:
  - rif_version must not be greater than the maximum supported version (0)
  """[1:-1]
 
+@given(u'a .rif file is on disk without a URL')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/missing-url.rif'
+    context.expected_error_msg = """
+Invalid .rif file: 
+ - Field "URL" is required
+ """[1:-1]
+
+@given(u'a .rif file is on disk without a method')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/missing-method.rif'
+    context.expected_error_msg = """
+Invalid .rif file: 
+ - Field "method" is required
+ """[1:-1]
+
+@given(u'a .rif file is on disk with an invalid method')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/bad-method.rif'
+    context.expected_error_msg = """
+Invalid .rif file: 
+ - Method "NOTAVALIDMETHOD" is invalid
+ """[1:-1]
+
+@given(u'a .rif file is on disk that has an invalid variable type')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/bad-variable-type.rif'
+    context.expected_error_msg = """
+Invalid .rif file: 
+ - Variable "foo" is invalid: variable has invalid type "notavalidtype" (valid types are boolean, number and string)
+ """[1:-1]
+
 @given(u'a .rif file is on disk that has some required variables')
 def step_impl(context):
     context.filename = '/vol/tests/test-data/required-variables.rif'
