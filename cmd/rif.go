@@ -112,24 +112,16 @@ func main() {
 	}
 
 	validationErrs := validation.ValidateRifYamlFile(yamlStruct, majorVersion)
+
+	reqDef, varDefs, canonicalizationErrors := yamlStruct.Canonicalize()
+	validationErrs = append(validationErrs, canonicalizationErrors...)
+
 	if len(validationErrs) > 0 {
 		errString := ""
 		for _, err := range validationErrs {
 			errString += "\n - " + err.Error()
 		}
 		errorAndExit("Invalid .rif file", errors.New(errString))
-	}
-
-	reqDef := fileversions.RifFileV0{
-		URL:     *yamlStruct.URL,
-		Method:  *yamlStruct.Method,
-		Headers: yamlStruct.Headers,
-		Body:    &yamlStruct.Body,
-	}
-
-	varDefs, err := makeVariableSchema(yamlStruct.Variables)
-	if err != nil {
-		errorAndExit("Invalid .rif file", err)
 	}
 
 	/**
@@ -278,51 +270,6 @@ func parseInputVars(rawVars []string) (map[string]string, error) {
 	}
 
 	return vars, nil
-}
-
-// makeVariableSchema takes the variables section of the struct used to parse
-// the yaml file and returns a decorated version where strings have been
-// replaced with enums etc.
-func makeVariableSchema(
-	yamlVarDefs map[string]fileversions.RifYamlVariableV0,
-) (map[string]variables.VarDef, error) {
-	varDefinitions := map[string]variables.VarDef{}
-	for varName, rawVarDef := range yamlVarDefs {
-		var varType variables.VarType
-		switch rawVarDef.Type {
-		case "boolean":
-			varType = variables.Boolean
-		case "number":
-			varType = variables.Number
-		case "string":
-			varType = variables.String
-		default:
-			return map[string]variables.VarDef{}, fmt.Errorf(
-				"variable definition \"%s\" has invalid type \"%s\". "+
-					"Valid types are boolean, number and string",
-				varName,
-				rawVarDef.Type,
-			)
-		}
-
-		var varDefault interface{}
-		switch value := rawVarDef.Default.(type) {
-		case int:
-			varDefault = int64(value)
-		case int32:
-			varDefault = int64(value)
-		case float32:
-			varDefault = float64(value)
-		default:
-			varDefault = value
-		}
-		varDefinitions[varName] = variables.VarDef{
-			Type:    varType,
-			Default: varDefault,
-		}
-	}
-
-	return varDefinitions, nil
 }
 
 // substituteVariableValues takes a map from variable name to value and a
