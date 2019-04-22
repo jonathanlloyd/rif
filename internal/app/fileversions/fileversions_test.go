@@ -21,7 +21,7 @@ func TestValidFileValidates(t *testing.T) {
 		Headers:    map[string]string{},
 		Body:       "",
 		Variables: map[string]fileversions.RifYamlVariableV0{
-			"foo": fileversions.RifYamlVariableV0{
+			"foo": {
 				Type:    "string",
 				Default: "bar",
 			},
@@ -39,7 +39,7 @@ func TestValidFileValidates(t *testing.T) {
 	}
 
 	expectedVarDefs := map[string]variables.VarDef{
-		"foo": variables.VarDef{
+		"foo": {
 			Type:    variables.String,
 			Default: "bar",
 		},
@@ -62,7 +62,7 @@ func TestLowercaseMethodsWork(t *testing.T) {
 		Headers:    map[string]string{},
 		Body:       "",
 		Variables: map[string]fileversions.RifYamlVariableV0{
-			"foo": fileversions.RifYamlVariableV0{
+			"foo": {
 				Type:    "string",
 				Default: "bar",
 			},
@@ -94,7 +94,7 @@ func TestMissingURL(t *testing.T) {
 		Headers:    map[string]string{},
 		Body:       "",
 		Variables: map[string]fileversions.RifYamlVariableV0{
-			"foo": fileversions.RifYamlVariableV0{
+			"foo": {
 				Type:    "string",
 				Default: "bar",
 			},
@@ -122,7 +122,7 @@ func TestMissingMethod(t *testing.T) {
 		Headers:    map[string]string{},
 		Body:       "",
 		Variables: map[string]fileversions.RifYamlVariableV0{
-			"foo": fileversions.RifYamlVariableV0{
+			"foo": {
 				Type:    "string",
 				Default: "bar",
 			},
@@ -151,7 +151,7 @@ func TestInvalidMethod(t *testing.T) {
 		Headers:    map[string]string{},
 		Body:       "",
 		Variables: map[string]fileversions.RifYamlVariableV0{
-			"foo": fileversions.RifYamlVariableV0{
+			"foo": {
 				Type:    "string",
 				Default: "bar",
 			},
@@ -180,7 +180,7 @@ func TestInvalidVarDefType(t *testing.T) {
 		Headers:    map[string]string{},
 		Body:       "",
 		Variables: map[string]fileversions.RifYamlVariableV0{
-			"foo": fileversions.RifYamlVariableV0{
+			"foo": {
 				Type: "notavalidtype",
 			},
 		},

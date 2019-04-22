@@ -161,17 +161,17 @@ func TestMakeMapShouldErrorBadInputType(t *testing.T) {
 
 func TestValidateInputVarsShouldAcceptValidInput(t *testing.T) {
 	varDefs := map[string]variables.VarDef{
-		"REQUIRED_1": variables.VarDef{
+		"REQUIRED_1": {
 			Type: variables.String,
 		},
-		"REQUIRED_2": variables.VarDef{
+		"REQUIRED_2": {
 			Type: variables.String,
 		},
-		"OPTIONAL_1": variables.VarDef{
+		"OPTIONAL_1": {
 			Type:    variables.String,
 			Default: "VALUE",
 		},
-		"OPTIONAL_2": variables.VarDef{
+		"OPTIONAL_2": {
 			Type:    variables.String,
 			Default: "VALUE",
 		},
@@ -189,17 +189,17 @@ func TestValidateInputVarsShouldAcceptValidInput(t *testing.T) {
 
 func TestValidateInputVarsShouldReturnNiceError(t *testing.T) {
 	varDefs := map[string]variables.VarDef{
-		"REQUIRED_1": variables.VarDef{
+		"REQUIRED_1": {
 			Type: variables.String,
 		},
-		"REQUIRED_2": variables.VarDef{
+		"REQUIRED_2": {
 			Type: variables.String,
 		},
-		"OPTIONAL_1": variables.VarDef{
+		"OPTIONAL_1": {
 			Type:    variables.String,
 			Default: "VALUE",
 		},
-		"OPTIONAL_2": variables.VarDef{
+		"OPTIONAL_2": {
 			Type:    variables.String,
 			Default: "VALUE",
 		},
