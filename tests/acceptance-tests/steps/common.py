@@ -18,7 +18,7 @@ def step_impl(context):
 
 def run_rif(args):
     result = subprocess.run(
-        ['/vol/build/rif'] + args,
+        ['./build/rif'] + args,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
@@ -29,3 +29,7 @@ def run_rif(args):
         print(output)
 
     return (output, return_code)
+
+
+def test_file_path(filename):
+    return './tests/acceptance-tests/test-data/' + filename

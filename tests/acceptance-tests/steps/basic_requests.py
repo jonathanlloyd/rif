@@ -7,7 +7,7 @@ from common import *
 
 @given(u'a .rif file is on disk that describes a GET request')
 def step_impl(context):
-    context.filename = '/vol/tests/test-data/basic-get.rif'
+    context.filename = test_file_path('basic-get.rif')
     context.expected_plain_output = """
 GET /basic-get HTTP/1.1
 host: localhost:8080
@@ -38,7 +38,7 @@ user-agent: RIF/0.4.5"""[1:]
 
 @given(u'a .rif file is on disk that describes a request with headers')
 def step_impl(context):
-    context.filename = '/vol/tests/test-data/basic-headers.rif'
+    context.filename = test_file_path('basic-headers.rif')
     context.expected_plain_output = """
 GET /basic-get HTTP/1.1
 host: localhost:8080
@@ -49,7 +49,7 @@ x-test-header: some_value"""[1:]
 
 @given(u'a .rif file is on disk that describes a request with a body')
 def step_impl(context):
-    context.filename = '/vol/tests/test-data/basic-body.rif'
+    context.filename = test_file_path('basic-body.rif')
     context.expected_plain_output = """
 POST /basic-get HTTP/1.1
 host: localhost:8080

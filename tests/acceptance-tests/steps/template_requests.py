@@ -7,7 +7,7 @@ from common import *
 
 @given(u'a .rif file is on disk that has a URL template')
 def step_impl(context):
-    context.filename = '/vol/tests/test-data/url-params.rif'
+    context.filename = test_file_path('url-params.rif')
     context.variables = {
         'NUM_THINGS': 20,
     }
@@ -54,7 +54,7 @@ user-agent: RIF/0.4.5
 
 @given(u'a .rif file is on disk that has a URL template with a default')
 def step_impl(context):
-    context.filename = '/vol/tests/test-data/url-params.rif'
+    context.filename = test_file_path('url-params.rif')
     context.variables = {}
     context.expected_plain_output = """
 GET /url-params?count=10 HTTP/1.1
@@ -65,7 +65,7 @@ user-agent: RIF/0.4.5"""[1:]
 
 @given(u'a .rif file is on disk that has a header template')
 def step_impl(context):
-    context.filename = '/vol/tests/test-data/header-params.rif'
+    context.filename = test_file_path('header-params.rif')
     context.variables = {
         'HEADER_VALUE': 'header-value',
     }
@@ -79,7 +79,7 @@ x-custom-header: header-value"""[1:]
 
 @given(u'a .rif file is on disk that has a body template')
 def step_impl(context):
-    context.filename = '/vol/tests/test-data/body-params.rif'
+    context.filename = test_file_path('body-params.rif')
     context.variables = {
         'BODY_VALUE': 'body-value',
     }

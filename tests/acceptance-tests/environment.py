@@ -23,7 +23,7 @@ def before_feature(context, feature):
     if 'needs_echo_server' in feature.tags:
         print('starting echo server...')
         context.echo_server = subprocess.Popen(
-            ['/vol/build/echo-server'],
+            ['./build/echo-server'],
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
         )

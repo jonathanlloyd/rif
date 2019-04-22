@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+docker run -v $PWD:/mnt thisisjonathan/rif-build bash -c 'cp -r /mnt /app && cd /app/ && /app/scripts/ci'
