@@ -20,6 +20,11 @@ Feature: .rif file validation
 		When the user runs RIF on that file
 		Then RIF should error
 
+	Scenario: The user makes a request an invalid method
+		Given a .rif file is on disk with an invalid method
+		When the user runs RIF on that file
+		Then RIF should error
+
 	Scenario: The user makes a request with an invalid variable type
 		Given a .rif file is on disk that has an invalid variable type
 		When the user runs RIF on that file

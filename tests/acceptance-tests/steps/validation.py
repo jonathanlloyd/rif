@@ -37,6 +37,14 @@ Invalid .rif file:
  - Field "method" is required
  """[1:-1]
 
+@given(u'a .rif file is on disk with an invalid method')
+def step_impl(context):
+    context.filename = '/vol/tests/test-data/bad-method.rif'
+    context.expected_error_msg = """
+Invalid .rif file: 
+ - Method "NOTAVALIDMETHOD" is invalid
+ """[1:-1]
+
 @given(u'a .rif file is on disk that has an invalid variable type')
 def step_impl(context):
     context.filename = '/vol/tests/test-data/bad-variable-type.rif'
