@@ -14,3 +14,8 @@ Feature: .rif file validation
 		Given a .rif file is on disk that has some required variables
 		When the user runs RIF on that file without passing in those variables
 		Then RIF should error
+
+	Scenario: The user makes a request with an invalid variable type
+		Given a .rif file is on disk that has an invalid variable type
+		When the user runs RIF on that file
+		Then RIF should error
