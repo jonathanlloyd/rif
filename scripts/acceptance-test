@@ -3,4 +3,4 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-behave ./tests/acceptance-tests
+py.test ./tests/acceptance-tests -v
