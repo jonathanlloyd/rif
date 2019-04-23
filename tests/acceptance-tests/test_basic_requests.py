@@ -1,29 +1,8 @@
-import time
-import subprocess
-
 import pytest
 
-ECHO_SERVER = None
+from common import *
 
 
-# Fixtures
-@pytest.fixture
-def echo_server():
-    global ECHO_SERVER
-
-    if ECHO_SERVER is not None:
-        return
-
-    print('Starting echo server...')
-    ECHO_SERVER = subprocess.Popen(
-        ['./build/echo-server'],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    time.sleep(1)
-
-
-# Tests
 def test_basic_get_request(echo_server):
     """Test that RIF can make basic GET requests"""
     output, return_code = run_rif(
@@ -72,23 +51,3 @@ test"""[1:]
 
     assert return_code == 0
     assert expected_output in output
-
-
-# Utilities
-def run_rif(args):
-    result = subprocess.run(
-        ['./build/rif'] + args,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-    )
-    return_code = result.returncode
-    output = result.stdout.decode('utf8')
-
-    if return_code != 0:
-        print(output)
-
-    return (output, return_code)
-
-
-def make_test_file_path(filename):
-    return './tests/acceptance-tests/test-data/' + filename
