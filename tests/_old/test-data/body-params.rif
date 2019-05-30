@@ -1,7 +1,0 @@
-rif_version: 0
-url: http://localhost:8080/body-params
-method: POST
-body: "Value: $(BODY_VALUE)"
-variables:
-  BODY_VALUE:
-    type: string

@@ -1,7 +1,0 @@
-rif_version: 0
-url: http://localhost:8080/url-params?count=$(NUM_THINGS)
-method: GET
-variables:
-  NUM_THINGS:
-    type: number
-    default: 10

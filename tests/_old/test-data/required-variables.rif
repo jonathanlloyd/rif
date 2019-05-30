@@ -1,9 +1,0 @@
-rif_version: 0
-url: http://localhost:8080/required-variables?a=$(VAR_A)&b=$(VAR_B)
-method: GET
-variables:
-  VAR_A:
-    type: number
-  VAR_B:
-    type: string
-    default: "value"
