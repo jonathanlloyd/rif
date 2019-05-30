@@ -1,4 +1,5 @@
 vendor/
 build/
 dist/
+venv/
 .github_token
