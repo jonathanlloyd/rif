@@ -101,7 +101,7 @@ func canonicalizeURL(yamlURL *string) (
 	validationErrors []error,
 ) {
 	if yamlURL == nil {
-		return "", []error{errors.New("Field \"URL\" is required")}
+		return "", []error{errors.New("Field \"url\" is required")}
 	}
 	return *yamlURL, nil
 }
