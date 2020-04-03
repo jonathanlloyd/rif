@@ -104,7 +104,7 @@ func TestMissingURL(t *testing.T) {
 	_, _, errs := validYamlFile.Canonicalize()
 
 	expectedErrs := []error{
-		errors.New("Field \"URL\" is required"),
+		errors.New("Field \"url\" is required"),
 	}
 
 	assert.NotNil(t, errs)

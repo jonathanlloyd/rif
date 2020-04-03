@@ -39,7 +39,7 @@ def test_url_missing():
 
     expected_output = """
 Invalid .rif file: 
- - Field "URL" is required
+ - Field "url" is required
  """[1:-1]
 
     assert return_code == 1
