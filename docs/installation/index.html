@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RIF documentation | Installation</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/reset.css">
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/docs.css">
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113287171-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+        gtag('config', 'UA-113287171-1');
+</script>
+
+
+  </head>
+  <body>
+  <header class="header">
+    <div class="header__logo-container">
+      <a href="https://jonathanlloyd.github.io/rif">
+        <img class="header__logo" src="https://jonathanlloyd.github.io/rif/img/logo-text.svg">
+      </a>
+    </div>
+    <div class="header__links">
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif/releases">
+        Download<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-download.svg">
+      </a>
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif">
+        Github<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-gh.svg">
+      </a>
+    </div>
+  </header>
+  <div class="outer-container">
+    <div class="sidebar">
+      
+      
+        <div class="sidebar__header">Getting Started</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/overview/">
+              <li class="sidebar__link-container">
+                  Overview
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link sidebar__link-highlight" href="/rif/docs/installation/">
+              <li class="sidebar__link-container sidebar__link-container-highlight">
+                Installation
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/quickstart/">
+              <li class="sidebar__link-container">
+                  Quickstart
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Guides</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/posting-json/">
+              <li class="sidebar__link-container">
+                  POSTing JSON
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/parameters/">
+              <li class="sidebar__link-container">
+                  Passing Parameters
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Reference</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/fileformat/">
+              <li class="sidebar__link-container">
+                  RIF File Format
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+    </div>
+    <div class="content-container">
+      <div class="content">
+        <span class="content__title">Installation</span>
+        <div>
+          <h1 id="quick-installupgrade">Quick Install/Upgrade</h1>
+<h2 id="macos-64bit">MacOS (64bit)</h2>
+<p>To install/upgrade RIF on MacOS use the RIF brew tap:</p>
+<pre><code>brew install jonathanlloyd/rif/rif
+</code></pre><h2 id="linux-64bit">Linux (64bit)</h2>
+<p>To install/upgrade RIF on a standard 64bit linux install, run the following in
+your shell:</p>
+<pre><code>curl -Lo rif.tar $(curl https://api.github.com/repos/jonathanlloyd/rif/releases/latest 2&gt;/dev/null | grep -o http[^[:space:]]*linux_amd64\.tar\.gz) 2&gt;/dev/null &amp;&amp; tar -xf rif.tar rif &amp;&amp; chmod +x rif &amp;&amp; sudo mv rif /usr/local/bin/rif &amp;&amp; rm ./rif.tar &amp;&amp; rif --help &amp;&amp; rif --version
+</code></pre><h1 id="verifying-your-installation">Verifying Your Installation</h1>
+<p>To verify that you have installed RIF correctly, run the following command
+in your terminal:</p>
+<pre><code>$ rif --version
+</code></pre><p>If RIF is correctly installed you should see the version and build
+number printed to the screen:</p>
+<pre><code>Version: &lt;expected version number&gt;
+Build: &lt;build number&gt;
+</code></pre><h1 id="manual-install-other-platforms">Manual Install (other platforms)</h1>
+<p>RIF is distributed as a single binary executable. To install it all you need
+to do is download the correct binary from the
+<a href="https://github.com/jonathanlloyd/rif/releases" title="Downloads Page">downloads page</a>
+and put it somewhere in your path.</p>
+<h1 id="supported-platforms">Supported Platforms</h1>
+<h2 id="macos">macOS</h2>
+<h3 id="download">Download</h3>
+<ul>
+<li>If you are running a 64bit system:
+<ul>
+<li><code>rif_&lt;version&gt;_darwin_amd64.tar.gz</code></li>
+</ul>
+</li>
+<li>If you are running a 32bit system:
+<ul>
+<li><code>rif_&lt;version&gt;_darwin_386.tar.gz</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="path">Path</h3>
+<p>Extract the appropriate binary and add it to a directory in your
+<a href="http://osxdaily.com/2014/08/14/add-new-path-to-path-command-line/" title="How to Add a New Path to PATH at Command Line the Right Way">path</a>.
+We recommend that you put it in <code>/user/local</code>.</p>
+<h2 id="linux">Linux</h2>
+<h3 id="download-1">Download</h3>
+<ul>
+<li>If you are running a 64bit system:
+<ul>
+<li><code>rif_&lt;version&gt;_linux_amd64.tar.gz</code></li>
+</ul>
+</li>
+<li>If you are running a 32bit system:
+<ul>
+<li><code>rif_&lt;version&gt;_linux_386.tar.gz</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="path-1">Path</h3>
+<p>Extract the appropriate binary and add it to a directory in your
+<a href="https://www.cyberciti.biz/faq/how-to-add-to-bash-path-permanently-on-linux/" title="How to add to bash $PATH permanently on Linux">path</a>.
+We recommend that you put it in <code>/usr/local/bin</code>.</p>
+<h2 id="windows">Windows</h2>
+<h3 id="download-2">Download</h3>
+<ul>
+<li>If you are running a 64bit system:
+<ul>
+<li><code>rif_&lt;version&gt;_windows_amd64.tar.gz</code></li>
+</ul>
+</li>
+<li>If you are running a 32bit system:
+<ul>
+<li><code>rif_&lt;version&gt;_windows_386.tar.gz</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="path-2">Path</h3>
+<p>Extract the appropriate binary and add it to a directory in your
+<a href="https://stackoverflow.com/questions/1618280/where-can-i-set-path-to-make-exe-on-windows" title="Where can I set the path on Windows?">path</a>.
+We recommend that you put it in <code>c:\RIF</code> and add this directory to your path.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

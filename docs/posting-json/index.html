@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RIF documentation | POSTing JSON</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/reset.css">
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/docs.css">
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113287171-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+        gtag('config', 'UA-113287171-1');
+</script>
+
+
+  </head>
+  <body>
+  <header class="header">
+    <div class="header__logo-container">
+      <a href="https://jonathanlloyd.github.io/rif">
+        <img class="header__logo" src="https://jonathanlloyd.github.io/rif/img/logo-text.svg">
+      </a>
+    </div>
+    <div class="header__links">
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif/releases">
+        Download<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-download.svg">
+      </a>
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif">
+        Github<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-gh.svg">
+      </a>
+    </div>
+  </header>
+  <div class="outer-container">
+    <div class="sidebar">
+      
+      
+        <div class="sidebar__header">Getting Started</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/overview/">
+              <li class="sidebar__link-container">
+                  Overview
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/installation/">
+              <li class="sidebar__link-container">
+                  Installation
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/quickstart/">
+              <li class="sidebar__link-container">
+                  Quickstart
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Guides</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link sidebar__link-highlight" href="/rif/docs/posting-json/">
+              <li class="sidebar__link-container sidebar__link-container-highlight">
+                POSTing JSON
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/parameters/">
+              <li class="sidebar__link-container">
+                  Passing Parameters
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Reference</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/fileformat/">
+              <li class="sidebar__link-container">
+                  RIF File Format
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+    </div>
+    <div class="content-container">
+      <div class="content">
+        <span class="content__title">POSTing JSON</span>
+        <div>
+          <p>In this guide you will learn how to use RIF to send a <code>POST</code> request with a
+JSON body. Then, you will learn how to use templates to add a variable to the
+JSON payload.</p>
+<h1 id="create-the-rif-file">Create the RIF file</h1>
+<p>First we will create a <code>.rif</code> file that describes a <code>POST</code> request to
+<code>http://httpbin.org/post</code>. This endpoint will echo back the body of the request
+we are going to send. Save the following file as <code>post-json-body.rif</code>:</p>
+<pre><code>rif_version: 0
+url: &quot;http://httpbin.org/post&quot;
+method: &quot;POST&quot;
+</code></pre><p>Then run RIF on the file:</p>
+<pre><code>$ rif post-json-body.rif
+</code></pre><p>You should see something like the following output:</p>
+<pre><code>{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;&quot;, 
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {}, 
+  &quot;headers&quot;: {
+    &quot;Accept-Encoding&quot;: &quot;gzip&quot;, 
+    &quot;Connection&quot;: &quot;close&quot;, 
+    &quot;Content-Length&quot;: &quot;0&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;RIF/0.3.1&quot;
+  }, 
+  &quot;json&quot;: null, 
+  &quot;origin&quot;: &quot;&lt;YOUR IP ADDRESS&gt;&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/post&quot;
+}
+</code></pre><h1 id="add-a-json-body">Add a JSON body</h1>
+<p>The next step is to add a JSON body to the request. You can do this using the
+<a href="http://www.yaml.org/spec/1.2/spec.html#id2795688">multiline yaml syntax</a>:</p>
+<pre><code>rif_version: 0
+url: &quot;http://httpbin.org/post&quot;
+method: &quot;POST&quot;
+headers:
+  content-type: &quot;application/json&quot;
+body: |
+  {
+    &quot;message&quot;: &quot;Hello World!&quot;
+  }
+</code></pre><p>This adds a JSON body along with the <code>application/json</code> content type header
+to the request. If you run rif on this file you will see that the JSON body
+has been added to the echoed response:</p>
+<pre><code>{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;{\n  \&quot;message\&quot;: \&quot;Hello World!\&quot;\n}\n&quot;, 
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {}, 
+  &quot;headers&quot;: {
+    &quot;Accept-Encoding&quot;: &quot;gzip&quot;, 
+    &quot;Connection&quot;: &quot;close&quot;, 
+    &quot;Content-Length&quot;: &quot;32&quot;, 
+    &quot;Content-Type&quot;: &quot;application/json&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;RIF/0.3.1&quot;
+  }, 
+  &quot;json&quot;: {
+    &quot;message&quot;: &quot;Hello World!&quot;
+  }, 
+  &quot;origin&quot;: &quot;&lt;YOUR IP ADDRESS&gt;&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/post&quot;
+}
+</code></pre><h1 id="add-a-variable">Add a variable</h1>
+<p>The final step is to add a template variable to your JSON body so that
+you can substitute this value when calling RIF:</p>
+<pre><code>rif_version: 0
+url: &quot;http://httpbin.org/post&quot;
+method: &quot;POST&quot;
+headers:
+  content-type: &quot;application/json&quot;
+body: |
+  {
+    &quot;message&quot;: &quot;$(body)&quot;
+  }
+variables:
+  body:
+    type: &quot;string&quot;
+</code></pre><p>You can now pass in a message as a command line argument when calling RIF:</p>
+<pre><code>$ rif post-json-body.rif body=&quot;RIF Rocks!&quot;
+</code></pre><p>And you should see the result returned in the request response:</p>
+<pre><code>{
+  &quot;args&quot;: {}, 
+  &quot;data&quot;: &quot;{\n  \&quot;message\&quot;: \&quot;RIF Rocks!\&quot;\n}\n&quot;, 
+  &quot;files&quot;: {}, 
+  &quot;form&quot;: {}, 
+  &quot;headers&quot;: {
+    &quot;Accept-Encoding&quot;: &quot;gzip&quot;, 
+    &quot;Connection&quot;: &quot;close&quot;, 
+    &quot;Content-Length&quot;: &quot;30&quot;, 
+    &quot;Content-Type&quot;: &quot;application/json&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;RIF/0.3.1&quot;
+  }, 
+  &quot;json&quot;: {
+    &quot;message&quot;: &quot;RIF Rocks!&quot;
+  }, 
+  &quot;origin&quot;: &quot;&lt;YOUR IP ADDRESS&gt;&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/post&quot;
+}
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RIF documentation | RIF File Format</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/reset.css">
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/docs.css">
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113287171-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+        gtag('config', 'UA-113287171-1');
+</script>
+
+
+  </head>
+  <body>
+  <header class="header">
+    <div class="header__logo-container">
+      <a href="https://jonathanlloyd.github.io/rif">
+        <img class="header__logo" src="https://jonathanlloyd.github.io/rif/img/logo-text.svg">
+      </a>
+    </div>
+    <div class="header__links">
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif/releases">
+        Download<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-download.svg">
+      </a>
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif">
+        Github<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-gh.svg">
+      </a>
+    </div>
+  </header>
+  <div class="outer-container">
+    <div class="sidebar">
+      
+      
+        <div class="sidebar__header">Getting Started</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/overview/">
+              <li class="sidebar__link-container">
+                  Overview
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/installation/">
+              <li class="sidebar__link-container">
+                  Installation
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/quickstart/">
+              <li class="sidebar__link-container">
+                  Quickstart
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Guides</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/posting-json/">
+              <li class="sidebar__link-container">
+                  POSTing JSON
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/parameters/">
+              <li class="sidebar__link-container">
+                  Passing Parameters
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Reference</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link sidebar__link-highlight" href="/rif/docs/fileformat/">
+              <li class="sidebar__link-container sidebar__link-container-highlight">
+                RIF File Format
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+    </div>
+    <div class="content-container">
+      <div class="content">
+        <span class="content__title">RIF File Format</span>
+        <div>
+          <h1 id="schema">Schema</h1>
+<h2 id="rif-file">RIF File</h2>
+<ul>
+<li>rif_version ( integer | <strong>required</strong> )</li>
+<li>The RIF file format version of the file. Currently, the only supported
+version is 0.</li>
+<li>url ( string | <strong>required</strong> )</li>
+<li>The URL of the documented request</li>
+<li>method ( string | <strong>required</strong> )</li>
+<li>The HTTP method of the documented request. Must be a standard method
+(&ldquo;GET&rdquo;, &ldquo;POST&rdquo;, &ldquo;PUT&rdquo;, &ldquo;PATCH&rdquo;, &ldquo;DELETE&rdquo;, etc.)</li>
+<li>headers ( Map&lt;string,string&gt; | optional )</li>
+<li>A map from header name to value. E.g. <code>Content-Type: &quot;application/json&quot;</code>.</li>
+<li>body ( string | optional )</li>
+<li>The body of the documented request.</li>
+<li>variables ( Map&lt;string,VariableDefinition&gt; | optional)</li>
+<li>A map from variable names to their definitions. These variables are used
+to populate the template strings in your request.</li>
+</ul>
+<h2 id="variabledefinition">VariableDefinition</h2>
+<ul>
+<li>type (string | required )</li>
+<li>The type of the variable you wish to use in your template (used to
+parse/validate the variable value). Must be one of: string, boolean or number.</li>
+<li>default ( string or boolean or number | required )</li>
+<li>The default value of the variable in your template. Must be of the appropriate
+type based on the type field of the variable definition.</li>
+</ul>
+<h1 id="example">Example</h1>
+<pre><code>rif_version: 0
+url: http://httpbin.org/post
+method: POST
+headers:
+  Content-Type: application/json
+body: |
+  {
+    &quot;command&quot;: &quot;$(commandType)&quot;
+  }
+variables:
+  commandType:
+    type: string
+    default: OPEN
+</code></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

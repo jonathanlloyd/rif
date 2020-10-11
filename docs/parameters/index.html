@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RIF documentation | Passing Parameters</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/reset.css">
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/docs.css">
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113287171-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+        gtag('config', 'UA-113287171-1');
+</script>
+
+
+  </head>
+  <body>
+  <header class="header">
+    <div class="header__logo-container">
+      <a href="https://jonathanlloyd.github.io/rif">
+        <img class="header__logo" src="https://jonathanlloyd.github.io/rif/img/logo-text.svg">
+      </a>
+    </div>
+    <div class="header__links">
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif/releases">
+        Download<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-download.svg">
+      </a>
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif">
+        Github<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-gh.svg">
+      </a>
+    </div>
+  </header>
+  <div class="outer-container">
+    <div class="sidebar">
+      
+      
+        <div class="sidebar__header">Getting Started</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/overview/">
+              <li class="sidebar__link-container">
+                  Overview
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/installation/">
+              <li class="sidebar__link-container">
+                  Installation
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/quickstart/">
+              <li class="sidebar__link-container">
+                  Quickstart
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Guides</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/posting-json/">
+              <li class="sidebar__link-container">
+                  POSTing JSON
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link sidebar__link-highlight" href="/rif/docs/parameters/">
+              <li class="sidebar__link-container sidebar__link-container-highlight">
+                Passing Parameters
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Reference</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/fileformat/">
+              <li class="sidebar__link-container">
+                  RIF File Format
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+    </div>
+    <div class="content-container">
+      <div class="content">
+        <span class="content__title">Passing Parameters</span>
+        <div>
+          <p>RIF allows you to pass parameters into your requests from the command line:</p>
+<pre><code>$ rif my-request.rif api_key=&quot;E225A111B0A5BDC6106DEDC6476C1A83&quot;
+</code></pre><p>This is done using RIF Templates and request variables:</p>
+<pre><code>rif_version: 0
+url: &quot;http://httpbin.org/get&quot;
+method: &quot;GET&quot;
+headers:
+  Authorization: &quot;Bearer $(api_key)&quot;
+variables:
+  api_key:
+    type: string
+</code></pre><h1 id="templates">Templates</h1>
+<p>RIF supports template strings in the path, headers and body of your requests.</p>
+<p><strong>Example:</strong></p>
+<pre><code>rif_version: 0
+url: &quot;http://httpbin.org/get?message=$(value)&quot;
+method: &quot;GET&quot;
+</code></pre><p>In this example, the RIF File contains a template in the path of the
+request. When RIF is run on this file, the value of the <code>value</code> variable
+will be interpolated into the path.</p>
+<h2 id="syntax">Syntax</h2>
+<p>You add a template variable to your RIF File by prepending the variable name
+with a dollar sign and surrounding it with parentheses:</p>
+<pre><code>The following is the value of a variable: $(variable)
+</code></pre><p>In this example, the value of <code>variable</code> will be interpolated into the string.</p>
+<h2 id="supported-template-locations">Supported Template Locations</h2>
+<p>Template strings are supported in the following parts of a RIF file:</p>
+<ul>
+<li><code>url</code>
+<ul>
+<li>URL templates can be used to pass in query parameters or change hostnames</li>
+</ul>
+</li>
+<li><code>headers</code> (both header names and their values)
+<ul>
+<li>Header templates can be used to send custom header values such as api keys</li>
+</ul>
+</li>
+<li><code>body</code>
+<ul>
+<li>Body templates can be used to add custom fields in the request body
+such as the parameters in a POST request</li>
+</ul>
+</li>
+</ul>
+<h1 id="variables">Variables</h1>
+<p>Once you have added some templates to your RIF File you will need to define
+the type (and optionally the default value) of the variables you wish to
+substitute.</p>
+<pre><code>rif_version: 0
+url: &quot;http://httpbin.org/get?message=$(value)&quot;
+method: &quot;GET&quot;
+variables:
+  value:
+    type: string
+    default: &quot;Hello&quot;
+</code></pre><h2 id="variable-types">Variable Types</h2>
+<p>When defining a variable in your RIF File you must specify the type. This will
+be used to parse and validate the variables that you pass in. The following
+types are currently supported by RIF:</p>
+<ul>
+<li><code>boolean</code>
+<ul>
+<li>Represents true/false values.</li>
+<li>Must be one of <code>true</code>|<code>false</code>|<code>True</code>|<code>False</code></li>
+<li>Example: <code>true</code></li>
+</ul>
+</li>
+<li><code>number</code>
+<ul>
+<li>Represents integer and decimal values</li>
+<li>Will be rounded to the nearest 64bit floating point value</li>
+<li>Example: <code>12</code></li>
+</ul>
+</li>
+<li><code>string</code>
+<ul>
+<li>Represents textual values</li>
+<li>Full unicode support where allowed in the request.</li>
+<li>Example: <code>&quot;hello&quot;</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="variable-defaults">Variable Defaults</h2>
+<p>When defining a variable you can optionally specify a default value. This value
+will be used if the variable is not passed in over the command line. If a
+variable is not passed in and does not have a default value RIF will return an
+error. The default value of a variable must conform to the type of that variable.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>

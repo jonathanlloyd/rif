@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homepage on RIF - (HTTP) Requests In Files</title>
+    <link>https://jonathanlloyd.github.io/rif/</link>
+    <description>Recent content in Homepage on RIF - (HTTP) Requests In Files</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Dec 2017 23:46:05 +0000</lastBuildDate><atom:link href="https://jonathanlloyd.github.io/rif/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RIF File Format</title>
+      <link>https://jonathanlloyd.github.io/rif/docs/fileformat/</link>
+      <pubDate>Tue, 13 Feb 2018 20:01:33 +0000</pubDate>
+      
+      <guid>https://jonathanlloyd.github.io/rif/docs/fileformat/</guid>
+      <description>Schema RIF File  rif_version ( integer | required ) The RIF file format version of the file. Currently, the only supported version is 0. url ( string | required ) The URL of the documented request method ( string | required ) The HTTP method of the documented request. Must be a standard method (&amp;ldquo;GET&amp;rdquo;, &amp;ldquo;POST&amp;rdquo;, &amp;ldquo;PUT&amp;rdquo;, &amp;ldquo;PATCH&amp;rdquo;, &amp;ldquo;DELETE&amp;rdquo;, etc.) headers ( Map&amp;lt;string,string&amp;gt; | optional ) A map from header name to value.</description>
+    </item>
+    
+    <item>
+      <title>Passing Parameters</title>
+      <link>https://jonathanlloyd.github.io/rif/docs/parameters/</link>
+      <pubDate>Tue, 06 Feb 2018 09:06:17 +0000</pubDate>
+      
+      <guid>https://jonathanlloyd.github.io/rif/docs/parameters/</guid>
+      <description>RIF allows you to pass parameters into your requests from the command line:
+$ rif my-request.rif api_key=&amp;quot;E225A111B0A5BDC6106DEDC6476C1A83&amp;quot; This is done using RIF Templates and request variables:
+rif_version: 0 url: &amp;quot;http://httpbin.org/get&amp;quot; method: &amp;quot;GET&amp;quot; headers: Authorization: &amp;quot;Bearer $(api_key)&amp;quot; variables: api_key: type: string Templates RIF supports template strings in the path, headers and body of your requests.
+Example:
+rif_version: 0 url: &amp;quot;http://httpbin.org/get?message=$(value)&amp;quot; method: &amp;quot;GET&amp;quot; In this example, the RIF File contains a template in the path of the request.</description>
+    </item>
+    
+    <item>
+      <title>POSTing JSON</title>
+      <link>https://jonathanlloyd.github.io/rif/docs/posting-json/</link>
+      <pubDate>Mon, 05 Feb 2018 21:32:27 +0000</pubDate>
+      
+      <guid>https://jonathanlloyd.github.io/rif/docs/posting-json/</guid>
+      <description>In this guide you will learn how to use RIF to send a POST request with a JSON body. Then, you will learn how to use templates to add a variable to the JSON payload.
+Create the RIF file First we will create a .rif file that describes a POST request to http://httpbin.org/post. This endpoint will echo back the body of the request we are going to send. Save the following file as post-json-body.</description>
+    </item>
+    
+    <item>
+      <title>Quickstart</title>
+      <link>https://jonathanlloyd.github.io/rif/docs/quickstart/</link>
+      <pubDate>Mon, 29 Jan 2018 22:04:42 +0000</pubDate>
+      
+      <guid>https://jonathanlloyd.github.io/rif/docs/quickstart/</guid>
+      <description>Installation First you need to make sure that RIF is properly installed. Follow the instructions on the installation page before completing this guide.
+Making Your First Request To get started, we will be making a simple GET request to httpbin.org/get. This endpoint returns the details of GET requests back to the client as JSON.
+We will be passing in a URL parameter called message that is parameterised using RIFs variable templating feature.</description>
+    </item>
+    
+    <item>
+      <title>Overview</title>
+      <link>https://jonathanlloyd.github.io/rif/docs/overview/</link>
+      <pubDate>Sat, 30 Dec 2017 23:56:07 +0000</pubDate>
+      
+      <guid>https://jonathanlloyd.github.io/rif/docs/overview/</guid>
+      <description>RIF is a command-line tool and associated template file-format for storing, making and sharing HTTP requests. With RIF you can create a .rif template file that contains all the details and parameters of a HTTP request you frequently have to make (e.g. if you are testing a HTTP API). You can then use RIF to fire off that request with the desired parameters quickly and easily.
+Why RIF? Developers As a developer, RIF will allow you to take the repetitive strain out of interacting with and testing HTTP APIs.</description>
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>https://jonathanlloyd.github.io/rif/docs/installation/</link>
+      <pubDate>Sat, 30 Dec 2017 21:14:46 +0000</pubDate>
+      
+      <guid>https://jonathanlloyd.github.io/rif/docs/installation/</guid>
+      <description>Quick Install/Upgrade MacOS (64bit) To install/upgrade RIF on MacOS use the RIF brew tap:
+brew install jonathanlloyd/rif/rif Linux (64bit) To install/upgrade RIF on a standard 64bit linux install, run the following in your shell:
+curl -Lo rif.tar $(curl https://api.github.com/repos/jonathanlloyd/rif/releases/latest 2&amp;gt;/dev/null | grep -o http[^[:space:]]*linux_amd64\.tar\.gz) 2&amp;gt;/dev/null &amp;amp;&amp;amp; tar -xf rif.tar rif &amp;amp;&amp;amp; chmod +x rif &amp;amp;&amp;amp; sudo mv rif /usr/local/bin/rif &amp;amp;&amp;amp; rm ./rif.tar &amp;amp;&amp;amp; rif --help &amp;amp;&amp;amp; rif --version Verifying Your Installation To verify that you have installed RIF correctly, run the following command in your terminal:</description>
+    </item>
+    
+  </channel>
+</rss>

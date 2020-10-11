@@ -1,0 +1,138 @@
+body, html {
+  height: 100%;
+}
+body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 13pt;
+}
+
+.gh-ribbon {
+  display: none;
+}
+
+.hero {
+  box-sizing: content-box;
+  color: #333;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.hero__logo {
+  height: 40px;
+  margin-bottom: 40px;
+}
+
+.hero__copy {
+  align-items: flex-start;
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.hero__copy__description {
+  line-height: 1.5em;
+  margin-right: 20px;
+  width: 100%;
+}
+
+.hero__copy__description h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.7em;
+}
+
+.hero__copy__description strong {
+  font-weight: bold;
+}
+
+.hero__copy__image {
+  border-radius: 5px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.hero__calls {
+  display: block;
+  margin: 0px auto;
+  text-align: center;
+  width: 100%;
+}
+
+.hero__button {
+  background: white;
+  border: 1px solid #BBB;
+  border-radius: 5px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  color: #333;
+  display: block;
+  font-size: 1.3em;
+  padding: 15px 20px;
+  margin: 10px;
+  text-decoration: none;
+}
+
+.hero__button:hover {
+  background: #EEE;
+  cursor: pointer;
+}
+
+.hero__button-highlight {
+  background: #CC333F;
+  border: none;
+  color: #FFF;
+}
+
+.hero__button-highlight:hover {
+  background: #DD444F;
+}
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+  .hero__button {
+    display: inline-block;
+    font-size: 1.1em;
+    padding: 10px 20px;
+  }
+}
+
+/* Larger than tablet */
+@media (min-width: 800px) {
+  body {
+    font-size: 12pt;
+  }
+  .gh-ribbon {
+    display: inline-block;
+  }
+  .hero {
+    position: relative;
+    top: 30px;
+    width: 800px;
+  }
+  .hero__logo {
+    height: 35px;
+  }
+  .hero__copy__image {
+    display: inline-block;
+    width: 400px;
+  }
+  .hero__copy__description {
+    width: 50%;
+  }
+}
+
+/* Larger than Ultra HD */
+@media (min-width: 2000px) {
+  body {
+    font-size: 18pt;
+  }
+  .hero {
+    top: 80px;
+    width: 1200px;
+  }
+  .hero__logo {
+    height: 60px;
+  }
+  .hero__copy__image {
+    width: 700px;
+  }
+}

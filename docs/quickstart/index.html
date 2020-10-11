@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RIF documentation | Quickstart</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Raleway" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/reset.css">
+    <link rel="stylesheet" href="https://jonathanlloyd.github.io/rif/css/docs.css">
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113287171-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+        gtag('config', 'UA-113287171-1');
+</script>
+
+
+  </head>
+  <body>
+  <header class="header">
+    <div class="header__logo-container">
+      <a href="https://jonathanlloyd.github.io/rif">
+        <img class="header__logo" src="https://jonathanlloyd.github.io/rif/img/logo-text.svg">
+      </a>
+    </div>
+    <div class="header__links">
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif/releases">
+        Download<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-download.svg">
+      </a>
+      <a class="header__link" href="https://github.com/jonathanlloyd/rif">
+        Github<img class="header__icon" src="https://jonathanlloyd.github.io/rif/img/icon-gh.svg">
+      </a>
+    </div>
+  </header>
+  <div class="outer-container">
+    <div class="sidebar">
+      
+      
+        <div class="sidebar__header">Getting Started</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/overview/">
+              <li class="sidebar__link-container">
+                  Overview
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/installation/">
+              <li class="sidebar__link-container">
+                  Installation
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link sidebar__link-highlight" href="/rif/docs/quickstart/">
+              <li class="sidebar__link-container sidebar__link-container-highlight">
+                Quickstart
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Guides</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/posting-json/">
+              <li class="sidebar__link-container">
+                  POSTing JSON
+              </li>
+            </a>
+          
+        
+          
+            <a class="sidebar__link" href="/rif/docs/parameters/">
+              <li class="sidebar__link-container">
+                  Passing Parameters
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+        <div class="sidebar__header">Reference</div>
+        <ul class="sidebar__links">
+        
+          
+            <a class="sidebar__link" href="/rif/docs/fileformat/">
+              <li class="sidebar__link-container">
+                  RIF File Format
+              </li>
+            </a>
+          
+        
+        </ul>
+      
+    </div>
+    <div class="content-container">
+      <div class="content">
+        <span class="content__title">Quickstart</span>
+        <div>
+          <h1 id="installation">Installation</h1>
+<p>First you need to make sure that RIF is properly installed.
+Follow the instructions on the
+<a href="/rif/docs/installation/">installation page</a> before completing
+this guide.</p>
+<h1 id="making-your-first-request">Making Your First Request</h1>
+<p>To get started, we will be making a simple GET request to
+<a href="http://httpbin.org/get">httpbin.org/get</a>. This endpoint returns the details
+of GET requests back to the client as JSON.</p>
+<p>We will be passing in a URL parameter called <code>message</code> that is parameterised
+using RIFs variable templating feature.</p>
+<p>Open your editor of choice and save the following file to your computer
+as <code>gethttpbin.rif</code>:</p>
+<pre><code>rif_version: 0
+url: &quot;http://httpbin.org/get?message=hello%20$(place)&quot;
+method: &quot;GET&quot;
+variables:
+  place:
+    type: &quot;string&quot;
+    default: &quot;world&quot;
+</code></pre><p>Next, open your terminal in the same location and run RIF,
+passing in the file you just created:</p>
+<pre><code>$ rif ./gethttpbin.rif
+</code></pre><p>If all goes well you should see something like the following:</p>
+<pre><code>{
+  &quot;args&quot;: {
+    &quot;message&quot;: &quot;hello world&quot;
+  }, 
+  &quot;headers&quot;: {
+    &quot;Accept-Encoding&quot;: &quot;gzip&quot;, 
+    &quot;Connection&quot;: &quot;close&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;RIF/0.2.0&quot;
+  }, 
+  &quot;origin&quot;: &quot;&lt;YOUR IP ADDRESS&gt;&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/get?message=hello world&quot;
+}
+</code></pre><h2 id="variable-templating">Variable Templating</h2>
+<p>Now let&rsquo;s use RIF&rsquo;s variable templating feature to override our welcome message.
+Paste the following command into your terminal:</p>
+<pre><code>$ rif ./gethttpbin.rif place=universe
+</code></pre><p>You should now see that the response has changed:</p>
+<pre><code>{
+  &quot;args&quot;: {
+    &quot;message&quot;: &quot;hello universe&quot;
+  }, 
+  &quot;headers&quot;: {
+    &quot;Accept-Encoding&quot;: &quot;gzip&quot;, 
+    &quot;Connection&quot;: &quot;close&quot;, 
+    &quot;Host&quot;: &quot;httpbin.org&quot;, 
+    &quot;User-Agent&quot;: &quot;RIF/0.2.0&quot;
+  }, 
+  &quot;origin&quot;: &quot;&lt;YOUR IP ADDRESS&gt;&quot;, 
+  &quot;url&quot;: &quot;http://httpbin.org/get?message=hello universe&quot;
+}
+</code></pre><p>Congratulations! You have just made and executed your first <code>.rif</code> file!</p>
+<h1 id="where-next">Where next?</h1>
+<p>Why not check out the
+<a href="/rif/docs/fileformat/">RIF File Format</a> documentation?</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  </body>
+</html>
