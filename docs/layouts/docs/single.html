@@ -24,34 +24,36 @@
       </a>
     </div>
   </header>
-  <div class="sidebar">
-    {{ $pageScope := . }}
-    {{ range .Site.Menus.docs }}
-      <div class="sidebar__header">{{ .Name }}</div>
-      <ul class="sidebar__links">
-      {{ range .Children }}
-        {{if eq .Name $pageScope.Title}}
-          <a class="sidebar__link sidebar__link-highlight" href="{{.URL}}">
-            <li class="sidebar__link-container sidebar__link-container-highlight">
-              {{.Name}}
-            </li>
-          </a>
-        {{else}}
-          <a class="sidebar__link" href="{{.URL}}">
-            <li class="sidebar__link-container">
+  <div class="outer-container">
+    <div class="sidebar">
+      {{ $pageScope := . }}
+      {{ range .Site.Menus.docs }}
+        <div class="sidebar__header">{{ .Name }}</div>
+        <ul class="sidebar__links">
+        {{ range .Children }}
+          {{if eq .Name $pageScope.Title}}
+            <a class="sidebar__link sidebar__link-highlight" href="{{.URL}}">
+              <li class="sidebar__link-container sidebar__link-container-highlight">
                 {{.Name}}
-            </li>
-          </a>
+              </li>
+            </a>
+          {{else}}
+            <a class="sidebar__link" href="{{.URL}}">
+              <li class="sidebar__link-container">
+                  {{.Name}}
+              </li>
+            </a>
+          {{ end }}
         {{ end }}
+        </ul>
       {{ end }}
-      </ul>
-    {{ end }}
-  </div>
-  <div class="content-container">
-    <div class="content">
-      <span class="content__title">{{ .Title }}</span>
-      <div>
-        {{ .Content }}
+    </div>
+    <div class="content-container">
+      <div class="content">
+        <span class="content__title">{{ .Title }}</span>
+        <div>
+          {{ .Content }}
+        </div>
       </div>
     </div>
   </div>
