@@ -40,13 +40,9 @@ body {
 .sidebar {
   border-right: 5px solid #EEE;
   box-sizing: border-box;
-  left: 0;
-  height: 100%;
   overflow-y: auto;
   padding: 40px;
-  position: absolute;
-  top: 60px;
-  width: 300px;
+  flex: 0 0 300px;
 }
 
 .sidebar__header {
@@ -94,7 +90,11 @@ body {
 
 .content-container {
   box-sizing: border-box;
-  margin-left: 300px;
+  flex: 1 0 auto;
+}
+
+.outer-container {
+  display: flex;
 }
 
 .content {
