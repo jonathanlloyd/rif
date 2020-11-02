@@ -5,8 +5,8 @@ cd "$(dirname "$0")/.."
 
 [ -d build ] || mkdir build
 
-BUILDNO="$(./scripts/buildno)"
-VERSION=$(git describe --abbrev=0 --tags)
+BUILDNO="build"
+VERSION="version"
 
 echo "Building: RIF version $VERSION, Build No $BUILDNO"
 
