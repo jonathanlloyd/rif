@@ -61,3 +61,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.1.0] - 2017-12-29
 ### Added
  - Basic command implementation
+
+
+[Unreleased]: https://github.com/jonathanlloyd/rif/compare/0.4.5...HEAD
+[0.4.5]: https://github.com/jonathanlloyd/rif/compare/0.4.4...0.4.5
+[0.4.4]: https://github.com/jonathanlloyd/rif/compare/0.4.3...0.4.4
+[0.4.3]: https://github.com/jonathanlloyd/rif/compare/0.4.2...0.4.3
+[0.4.2]: https://github.com/jonathanlloyd/rif/compare/0.4.1...0.4.2
+[0.4.1]: https://github.com/jonathanlloyd/rif/compare/0.4.0...0.4.1
+[0.4.0]: https://github.com/jonathanlloyd/rif/compare/0.3.2...0.4.0
+[0.3.2]: https://github.com/jonathanlloyd/rif/compare/0.3.1...0.3.2
+[0.3.1]: https://github.com/jonathanlloyd/rif/compare/0.3.0...0.3.1
+[0.3.0]: https://github.com/jonathanlloyd/rif/compare/0.2.0...0.3.0
+[0.2.0]: https://github.com/jonathanlloyd/rif/compare/0.1.0...0.2.0
+[0.1.0]: https://github.com/jonathanlloyd/rif/releases/tag/0.1.0
