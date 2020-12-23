@@ -1,4 +1,0 @@
-script: ./scripts/docker-ci
-services:
-  - docker
-sudo: required
